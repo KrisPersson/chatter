@@ -12,10 +12,8 @@ export async function hashPassword(password: string) {
 export async function verifyPassword(hash: string, password: string) {
   try {
     if (await argon2.verify(hash, password)) {
-      console.log("Password match");
       return true
     } else {
-      console.log("Password does not match");
       return false
     }
   } catch (err) {

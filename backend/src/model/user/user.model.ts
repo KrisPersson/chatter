@@ -1,6 +1,6 @@
-import { UserDbSchema } from "../../schemas/user/user.schema";
-import { hashPassword, verifyPassword } from "./encryption";
-const { userDb, orderDb } = require("../db.js");
+import { UserDb } from "../../database/user.db.js";
+import { UserDbSchema } from "../../schemas/user/user.schema.js"
+import { hashPassword, verifyPassword } from "./encryption.js";
 import { v4 as uuidv4 } from 'uuid';
 
 export async function signup(
@@ -9,9 +9,8 @@ export async function signup(
   username: string,
 ) {
 
-  const userNameExist = await userDb.findOne({ username });
-  const emailExist = await userDb.findOne({ email });
-
+  const userNameExist = await UserDb.findOne({ username });
+  const emailExist = await UserDb.findOne({ email });
   if (userNameExist) {
     throw new Error("Username is already taken. Try a different one.");
   } else if (emailExist) {
@@ -27,17 +26,19 @@ export async function signup(
       createdAt: new Date()
     };
 
-    await userDb.insert(signupObj); // SET UP FOR MONGODB
-    return randomId;
+    const result = await UserDb.create(signupObj);
+
+    return result.id;
   }
 }
 
 export async function login(username: string, password: string) {
-  const user = await userDb.findOne({ username });
-  const passwordMatch = await verifyPassword(password, user.password);
+  const user = await UserDb.findOne({ username });
 
-  if (passwordMatch) {
-    return user.userId;
+  const passwordMatch = user ? await verifyPassword(user.password, password) : false;
+
+  if (user && passwordMatch) {
+    return user.id;
   } else {
     throw new Error("Login failed. Wrong username/password combination.");
   }
