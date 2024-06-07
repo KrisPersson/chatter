@@ -6,7 +6,10 @@ import {
   signupInputSchema,
   loginInputSchema,
 } from "../../schemas/user/user.schema.js";
-import { signupCtrl, loginCtrl } from "../../controllers/user/user.controller.js";
+import {
+  signupCtrl,
+  loginCtrl,
+} from "../../controllers/user/user.controller.js";
 
 // SIGNUP
 router.post("/signup", validateBody(signupInputSchema), signupCtrl);
