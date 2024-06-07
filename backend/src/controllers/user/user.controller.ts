@@ -13,7 +13,6 @@ export async function signupCtrl(request: Request, response: Response) {
       userId: userId,
     };
     response.json(result);
-    
   } catch (error) {
     const err = error as Error;
     response.json({ success: false, message: err.message });
@@ -25,17 +24,16 @@ export async function loginCtrl(request: Request, response: Response) {
   try {
     const { userId } = await login(username, password);
     const token = jwt.sign({ id: userId }, process.env.JWT_SECRET as string, {
-      expiresIn: "30 days"
-    })
-    response.json({ success: true, userId: userId, message: "Successfully logged in.", token });
+      expiresIn: "30 days",
+    });
+    response.json({
+      success: true,
+      userId: userId,
+      message: "Successfully logged in.",
+      token,
+    });
   } catch (error) {
     const err = error as Error;
     response.status(401).json({ success: false, message: err.message });
   }
 }
-
-
-
-  
-  
-
