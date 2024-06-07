@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { signup, login } from "../../model/user/user.model";
+import { signup, login } from "../../model/user/user.model.js";
 
 export async function signupCtrl(request: Request, response: Response) {
   const { email, password, username } = request.body;

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { baseMessageSchema } from "../message/message.schema";
+import { baseMessageSchema } from "../message/message.schema.js";
 
 export const baseChannelSchema = z.object({
     id: z.string().uuid(),
