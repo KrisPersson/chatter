@@ -33,7 +33,7 @@ export async function signup(
 }
 
 export async function login(username: string, password: string) {
-  const user = await userDb.findOne({ username });
+  const user = await userDb.findOne({ username }); // SET UP FOR MONGODB
   const passwordMatch = await verifyPassword(password, user.password);
 
   if (passwordMatch) {

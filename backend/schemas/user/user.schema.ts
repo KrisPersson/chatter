@@ -38,6 +38,7 @@ const userDbSchema = baseUserSchema.extend({
   password: z.string(), // Hashed
   createdAt: z.date(),
   updatedAt: z.date().optional(),
+  displayName: z.string().optional()
 });
 
 export type UserDbSchema = z.infer<typeof userDbSchema>;
