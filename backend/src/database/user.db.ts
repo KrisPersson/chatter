@@ -26,7 +26,11 @@ const userSignUpSchema = new mongoose.Schema({
     },
     displayName: {
         required: false,
-        type: String,
+        type: String
+    },
+    id: {
+        required: true,
+        type: String
     }
 })
 
@@ -37,4 +41,4 @@ userSignUpSchema.pre('save', function(next) {
     next();
 });
 
-export const User = mongoose.model("UserSignUp", userSignUpSchema) 
+export const UserDb = mongoose.model("User", userSignUpSchema) 
