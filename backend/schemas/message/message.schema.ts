@@ -8,5 +8,5 @@ export const baseMessageSchema = z.object({
 })
 
 export const privateMessageSchema = baseMessageSchema.extend({
-    receiverId: z.string().uuid()
+    isRead: z.boolean().default(false),
 })

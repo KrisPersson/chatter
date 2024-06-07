@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const baseUserSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters long."),
+  username: z.string().min(3, "Username must be at least 3 characters long"),
   password: z.string(),
 });
 
@@ -33,7 +33,7 @@ export const loginInputSchema = baseUserSchema.extend({
 });
 
 const userDbSchema = baseUserSchema.extend({
-  email: z.string().email(),
+  email: z.string().email("Invalid email address"),
   id: z.string().uuid(),
   password: z.string(), // Hashed
   createdAt: z.date(),
