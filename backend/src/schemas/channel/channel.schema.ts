@@ -7,7 +7,21 @@ export const baseChannelSchema = z.object({
   name: z.string(),
 });
 
-export const channelDbSchema = baseChannelSchema.extend({
-  timeFounded: z.date(),
-  messages: z.array(baseMessageSchema),
+export const userInputCreateChannelSchema = z.object({
+  name: z.string().min(3, "Channel name must be at least 3 characters long."),
 });
+
+export const channelDbSchema = baseChannelSchema.extend({
+  createdAt: z.date(),
+  messages: z.array(baseMessageSchema),
+  members: z.array(z.string()),
+});
+export type TChannel = z.infer<typeof channelDbSchema>;
+
+export const channelMember = z.object({
+  userId: z.string().uuid(),
+  isOwner: z.boolean(),
+  isModerator: z.boolean(),
+});
+
+export type TChannelMember = z.infer<typeof channelMember>;

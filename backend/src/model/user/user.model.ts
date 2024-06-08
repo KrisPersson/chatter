@@ -33,7 +33,7 @@ export async function signup(
 
 export async function login(username: string, password: string) {
   const user = await UserDb.findOne({ username });
-
+  console.log(user)
   const passwordMatch = user
     ? await verifyPassword(user.password, password)
     : false;

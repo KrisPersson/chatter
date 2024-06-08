@@ -22,10 +22,11 @@ export async function signupCtrl(request: Request, response: Response) {
 export async function loginCtrl(request: Request, response: Response) {
   const { username, password } = request.body;
   try {
-    const { userId } = await login(username, password);
+    const userId = await login(username, password);
     const token = jwt.sign({ id: userId }, process.env.JWT_SECRET as string, {
       expiresIn: "30 days",
     });
+    console.log(userId)
     response.json({
       success: true,
       userId: userId,
