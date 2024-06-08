@@ -19,17 +19,15 @@ const channelMemberSchema = new mongoose.Schema({
   },
 });
 
-export const Member = mongoose.model("ChannelMember", channelMemberSchema);
-
 const createNewChannelSchema = new mongoose.Schema({
   id: {
     required: true,
     type: String,
     default: () => {
       return uuidv4()
-  }
+    }
   },
-  founderId: {
+  founderUsername: {
     required: true,
     type: String,
   },
@@ -48,6 +46,10 @@ const createNewChannelSchema = new mongoose.Schema({
         required: true,
         type: String,
       },
+      senderUsername: {
+        required: true,
+        type: String,
+      },
       textBody: {
         required: true,
         type: String,
@@ -62,7 +64,7 @@ const createNewChannelSchema = new mongoose.Schema({
   members: {
     required: true,
     type: [{
-      userId: {
+      username: {
         required: true,
         type: String,
       },
@@ -96,7 +98,7 @@ const createNewChannelSchema = new mongoose.Schema({
 createNewChannelSchema.pre("save", function (next) {
   if (this.members.length < 1) {
     const firstMember: TChannelMember = {
-      userId: this.founderId,
+      username: this.founderUsername,
       isOwner: true,
       isModerator: true,
     };
