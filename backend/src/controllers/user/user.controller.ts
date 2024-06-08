@@ -29,7 +29,6 @@ export async function loginCtrl(request: Request, response: Response) {
     });
     response.json({
       success: true,
-      userId: user.id,
       username: user.username,
       message: "Successfully logged in.",
       token,

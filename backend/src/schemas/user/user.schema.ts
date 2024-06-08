@@ -37,6 +37,7 @@ const userDbSchema = baseUserSchema.extend({
   id: z.string().uuid(),
   password: z.string(), // Hashed
   createdAt: z.date(),
+  channels: z.array(z.string()),
   updatedAt: z.date().optional(),
   displayName: z.string().optional(),
 });

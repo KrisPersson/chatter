@@ -20,6 +20,11 @@ const userSignUpSchema = new mongoose.Schema({
       return new Date().toLocaleString();
     },
   },
+  channels: {
+    required: false,
+    type: [String], // channelName
+    default: []
+  },
   updatedAt: {
     required: false,
     type: String,

@@ -36,6 +36,7 @@ export async function joinChannel(channelName: string, username: string) {
       throw new Error("User is already a member of this channel.")
     }
   })
+  
   const newMember: TChannelMember = { username, isOwner: false, isModerator: false }
   channelInDb.members.push(newMember)
   return await channelInDb.save()

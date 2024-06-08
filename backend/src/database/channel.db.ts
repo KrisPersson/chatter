@@ -2,23 +2,6 @@ import mongoose from "mongoose";
 import { TChannelMember } from "../schemas/channel/channel.schema.js";
 import { v4 as uuidv4 } from "uuid";
 
-const channelMemberSchema = new mongoose.Schema({
-  userId: {
-    required: true,
-    type: String,
-  },
-  isOwner: {
-    required: true,
-    type: Boolean,
-    default: false,
-  },
-  isModerator: {
-    required: true,
-    type: Boolean,
-    default: false,
-  },
-});
-
 const createNewChannelSchema = new mongoose.Schema({
   id: {
     required: true,
