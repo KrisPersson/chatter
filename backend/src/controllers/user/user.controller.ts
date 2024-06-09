@@ -6,11 +6,12 @@ import { signup, login } from "../../model/user/user.model.js";
 export async function signupCtrl(request: Request, response: Response) {
   const { email, password, username } = request.body;
   try {
-    const userId = await signup(email, password, username);
+    const user = await signup(email, password, username);
     const result = {
       success: true,
       message: "User successfully signed up.",
-      userId: userId,
+      userId: user.id,
+      username: user.username,
     };
     response.json(result);
   } catch (error) {
@@ -22,13 +23,17 @@ export async function signupCtrl(request: Request, response: Response) {
 export async function loginCtrl(request: Request, response: Response) {
   const { username, password } = request.body;
   try {
-    const { userId } = await login(username, password);
-    const token = jwt.sign({ id: userId }, process.env.JWT_SECRET as string, {
-      expiresIn: "30 days",
-    });
+    const user = await login(username, password);
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "30 days",
+      },
+    );
     response.json({
       success: true,
-      userId: userId,
+      username: user.username,
       message: "Successfully logged in.",
       token,
     });

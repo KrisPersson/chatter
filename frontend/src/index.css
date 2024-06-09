@@ -1,0 +1,111 @@
+:root {
+  /* Palette */
+
+--_palette-blue-500: rgba(39, 121, 181, 1);
+--_palette-grayscale-50: rgba(242, 242, 242, 1);
+--_palette-grayscale-200: rgba(201, 201, 201, 1);
+--_palette-grayscale-400: rgba(148, 148, 148, 1);
+--_palette-grayscale-700: rgba(74, 74, 74, 1);
+--_palette-grayscale-800: rgba(48, 48, 48, 1);
+--_palette-grayscale-900: rgba(26, 26, 26, 1);
+--_palette-grayscale-950: rgba(13, 13, 13, 1);
+--_palette-green-500: rgba(65, 165, 49, 1);
+--_palette-red-500: rgba(165, 49, 49, 1);
+--_palette-yellow-300: rgba(241, 214, 116, 1);
+--_palette-yellow-500: rgba(231, 186, 27, 1);
+--_palette-yellow-700: rgba(139, 112, 14, 1);
+
+/* Global variables */
+
+--c-background-darker: var(--_palette-grayscale-900);
+--c-background-default: var(--_palette-grayscale-800);
+--c-background-lighter: var(--_palette-grayscale-700);
+--c-black: var(--_palette-grayscale-950);
+--c-danger: var(--_palette-red-500);
+--c-darker: var(--_palette-grayscale-400);
+--c-info: var(--_palette-blue-500);
+--c-inverted: var(--_palette-grayscale-700);
+--c-lighter: var(--_palette-grayscale-50);
+--c-main: var(--_palette-grayscale-200);
+--c-primary: var(--c-primary-default);
+--c-primary-darker: var(--_palette-yellow-700);
+--c-primary-default: var(--_palette-yellow-500);
+--c-primary-lighter: var(--_palette-yellow-300);
+--c-success: var(--_palette-green-500);
+--c-white: var(--_palette-grayscale-50);
+
+/* Numbers */
+
+--scale-4: 4px;
+--scale-8: 8px;
+--scale-12: 12px;
+--scale-16: 16px;
+--scale-24: 24px;
+--scale-32: 32px;
+--scale-64: 64px;
+
+/* Component Tokens */
+
+--xxsm: var(--scale-4);
+--xsm: var(--scale-8);
+--sm: var(--scale-12);
+--m: var(--scale-16);
+--l: var(--scale-24);
+--xl: var(--scale-32);
+--xxl: var(--scale-64);
+
+
+
+/* Fonts */
+
+--font-family: Jost, "sans-serif";
+
+
+
+/* Media Queries */
+
+@media (min-width: 800px) {
+};
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  width: 100vw;
+  overflow-x: hidden;
+  background: var(--c-background-default);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 500;
+}
+
+button {
+  cursor: pointer;
+  white-space: nowrap;
+}
+button:hover {
+  opacity: 0.7;
+}
+button:active {
+  opacity: 0.6;
+}
+

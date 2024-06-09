@@ -22,24 +22,24 @@ export async function signup(
       id: randomId,
       password: hashedPassword,
       username: username,
+      channels: [],
       createdAt: new Date(),
     };
 
     const result = await UserDb.create(signupObj);
 
-    return result.id;
+    return result;
   }
 }
 
 export async function login(username: string, password: string) {
   const user = await UserDb.findOne({ username });
-
   const passwordMatch = user
     ? await verifyPassword(user.password, password)
     : false;
 
   if (user && passwordMatch) {
-    return user.id;
+    return user;
   } else {
     throw new Error("Login failed. Wrong username/password combination.");
   }
