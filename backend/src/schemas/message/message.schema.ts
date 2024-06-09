@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const baseMessageSchema = z.object({
   id: z.string().uuid(),
-  senderId: z.string().uuid(),
+  senderUsername: z.string(),
   sentAt: z.date(),
   textBody: z.string(),
 });

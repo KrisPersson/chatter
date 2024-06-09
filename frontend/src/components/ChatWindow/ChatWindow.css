@@ -1,0 +1,19 @@
+
+
+.chat-feed {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem;
+    border: 2px solid black;
+    min-height: 50vh;
+}
+
+.message-input {
+    padding: 1em 2em;
+    min-width: 300px;
+}
+
+.send-message-btn {
+    background: darkgray;
+    padding: 1em 2em;
+}

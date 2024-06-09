@@ -18,12 +18,24 @@ database.once("connected", () =>
 );
 
 const httpServer = createServer(app);
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["http://localhost:5173"],
+  },
+});
 
 io.on("connection", (socket) => {
   // ...
-  console.log("CONNECTED TO SOCKET")
-  socket.emit('Connected! This was sent by socket.emit')
+  console.log("A user connected:", socket.id);
+  socket.emit("chat-message", "A user connected!");
+
+  socket.on("chat-message", (msg) => {
+    io.emit("chat-message", msg); // Broadcast the message to all connected clients
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected:", socket.id);
+  });
 });
 
 app.use(express.json());
@@ -31,4 +43,4 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/channel", channelRouter);
 
-httpServer.listen(PORT);
+httpServer.listen(PORT, () => console.log("Connected to server"));
