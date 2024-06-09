@@ -11,7 +11,7 @@ export async function signupCtrl(request: Request, response: Response) {
       success: true,
       message: "User successfully signed up.",
       userId: user.id,
-      username: user.username
+      username: user.username,
     };
     response.json(result);
   } catch (error) {
@@ -24,9 +24,13 @@ export async function loginCtrl(request: Request, response: Response) {
   const { username, password } = request.body;
   try {
     const user = await login(username, password);
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET as string, {
-      expiresIn: "30 days",
-    });
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "30 days",
+      },
+    );
     response.json({
       success: true,
       username: user.username,

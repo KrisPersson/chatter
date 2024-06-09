@@ -28,6 +28,4 @@ export const channelDbSchema = baseChannelSchema.extend({
 });
 export type TChannel = z.infer<typeof channelDbSchema>;
 
-
-
 export type TChannelMember = z.infer<typeof channelMember>;

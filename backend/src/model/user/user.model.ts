@@ -22,12 +22,13 @@ export async function signup(
       id: randomId,
       password: hashedPassword,
       username: username,
+      channels: [],
       createdAt: new Date(),
     };
 
     const result = await UserDb.create(signupObj);
 
-    return result
+    return result;
   }
 }
 

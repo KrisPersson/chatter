@@ -7,8 +7,8 @@ const createNewChannelSchema = new mongoose.Schema({
     required: true,
     type: String,
     default: () => {
-      return uuidv4()
-    }
+      return uuidv4();
+    },
   },
   founderUsername: {
     required: true,
@@ -20,54 +20,58 @@ const createNewChannelSchema = new mongoose.Schema({
   },
   messages: {
     required: true,
-    type: [{
-      id: {
-        required: true,
-        type: String,
+    type: [
+      {
+        id: {
+          required: true,
+          type: String,
+        },
+        senderId: {
+          required: true,
+          type: String,
+        },
+        senderUsername: {
+          required: true,
+          type: String,
+        },
+        textBody: {
+          required: true,
+          type: String,
+        },
+        sentAt: {
+          required: true,
+          type: String, // Date
+        },
       },
-      senderId: {
-        required: true,
-        type: String,
-      },
-      senderUsername: {
-        required: true,
-        type: String,
-      },
-      textBody: {
-        required: true,
-        type: String,
-      },
-      sentAt: {
-        required: true,
-        type: String, // Date
-      },
-    }],
-    default: []
+    ],
+    default: [],
   },
   members: {
     required: true,
-    type: [{
-      username: {
-        required: true,
-        type: String,
+    type: [
+      {
+        username: {
+          required: true,
+          type: String,
+        },
+        isOwner: {
+          required: true,
+          type: Boolean,
+          default: false,
+        },
+        isModerator: {
+          required: true,
+          type: Boolean,
+          default: false,
+        },
       },
-      isOwner: {
-        required: true,
-        type: Boolean,
-        default: false,
-      },
-      isModerator: {
-        required: true,
-        type: Boolean,
-        default: false,
-      },
-    }],
-    default: []
+    ],
+    default: [],
   },
   blockedUsers: {
     required: true,
     type: [String], // USERID
-    default: []
+    default: [],
   },
   createdAt: {
     required: true,
