@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 export const ContentWrapper = styled.section`
   display: flex;
   gap: ${size(3)};
-  padding-block: ${size(4)};
+  padding-block: ${size(0)};
   grid-row: 2 / span 1;
   grid-column: 2 / -2;
   margin-inline: auto;
   @media (min-width: 1200px) {
+    padding-block: ${size(4)};
+
     grid-row: 3 / span 2;
     grid-column: 2 / span 1;
     gap: ${size(6)};
@@ -64,7 +66,7 @@ export const Img = styled.img`
 `;
 
 export const BottomLine = styled.div`
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--c-darker);
   text-align: center;

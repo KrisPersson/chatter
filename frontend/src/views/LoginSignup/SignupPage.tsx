@@ -87,7 +87,7 @@ export default function SignupPage() {
 
         <Button $primary>Sign up</Button>
         <BottomLine>
-          Have account? Log in <StyledLink to="/login">here!</StyledLink>
+          Have an account? Log in <StyledLink to="/login">here!</StyledLink>
         </BottomLine>
       </Form>
     </Main>

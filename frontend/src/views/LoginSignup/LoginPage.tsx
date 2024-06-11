@@ -19,7 +19,6 @@ import {
   TextLabel,
 } from "../../styled-components/TextInput";
 import { ErrorText } from "../../styled-components/ErrorText";
-import { containsNumber } from "../../utils/helpers";
 
 export default function LoginPage() {
   const navigate = useNavigate();

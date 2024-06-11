@@ -8,7 +8,7 @@ export const Main = styled.main`
   display: grid;
   grid-template-rows: ${size(2)} auto 1fr ${size(2)};
   grid-template-columns: ${size(2)} 1fr ${size(2)};
-  row-gap: 0;
+  row-gap: ${size(4)};
 
   @media (min-width: 1200px) {
     grid-template-rows: repeat(6, 1fr);
@@ -19,8 +19,8 @@ export const Main = styled.main`
     grid-row: 3 / -3;
     grid-column: 2 / -2;
     margin-inline: auto;
-    min-width: 280px;
-    min-height: 505px;
+    min-width: ${size(35)};
+    min-height: ${size(63.125)};
     align-self: flex-start;
 
     @media (min-width: 1200px) {

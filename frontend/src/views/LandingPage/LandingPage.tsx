@@ -7,8 +7,9 @@ import {
   SubHeader,
   Img,
   ButtonWrapper,
+  Main,
+  Wrapper,
 } from "./styled";
-import { Main } from "../../styled-components/FrontpageMain";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -19,19 +20,21 @@ export default function LandingPage() {
 
   return (
     <Main>
-      <ContentWrapper>
-        <HeaderWrapper>
-          <MainHeader>Chatter</MainHeader>
-          <SubHeader>Let's chat!</SubHeader>
-        </HeaderWrapper>
-        <Img src="/logo.png" alt="Chatter logo" />
-      </ContentWrapper>
-      <ButtonWrapper>
-        <Button onClick={() => handleClick("login")} $primary>
-          Log in
-        </Button>
-        <Button onClick={() => handleClick("signup")}>Sign up</Button>
-      </ButtonWrapper>
+      <Wrapper>
+        <ContentWrapper>
+          <HeaderWrapper>
+            <MainHeader>Chatter</MainHeader>
+            <SubHeader>Let's chat!</SubHeader>
+          </HeaderWrapper>
+          <Img src="/logo.png" alt="Chatter logo" />
+        </ContentWrapper>
+        <ButtonWrapper>
+          <Button onClick={() => handleClick("login")} $primary>
+            Log in
+          </Button>
+          <Button onClick={() => handleClick("signup")}>Sign up</Button>
+        </ButtonWrapper>
+      </Wrapper>
     </Main>
   );
 }
