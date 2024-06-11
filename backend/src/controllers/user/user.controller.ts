@@ -4,9 +4,9 @@ import { Request, Response } from "express";
 import { signup, login } from "../../model/user/user.model.js";
 
 export async function signupCtrl(request: Request, response: Response) {
-  const { email, password, username } = request.body;
+  const { password, username } = request.body;
   try {
-    const user = await signup(email, password, username);
+    const user = await signup(password, username);
     const result = {
       success: true,
       message: "User successfully signed up.",

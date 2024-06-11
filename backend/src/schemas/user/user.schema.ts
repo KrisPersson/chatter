@@ -7,7 +7,6 @@ const baseUserSchema = z.object({
 
 export const signupInputSchema = baseUserSchema
   .extend({
-    email: z.string().email(),
     password: z
       .string()
       .regex(
@@ -33,7 +32,6 @@ export const loginInputSchema = baseUserSchema.extend({
 });
 
 const userDbSchema = baseUserSchema.extend({
-  email: z.string().email("Invalid email address"),
   id: z.string().uuid(),
   password: z.string(), // Hashed
   createdAt: z.date(),

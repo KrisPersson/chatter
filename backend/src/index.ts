@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { config } from "dotenv";
+import cors from "cors";
 config();
 const app = express();
 const PORT = process.env.PORT || 8000;
-
+app.use(cors());
 import userRouter from "./routes/user.route.js";
 import channelRouter from "./routes/channel.route.js";
 
