@@ -77,6 +77,8 @@
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
+  font-family: var(--font-family);
+  font-optical-sizing: auto;
 }
 
 #root {
