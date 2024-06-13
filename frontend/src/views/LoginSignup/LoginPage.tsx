@@ -44,6 +44,7 @@ export default function LoginPage() {
       return;
     }
     localStorage.setItem("userToken", loginAttempt.token);
+    navigate("/dashboard");
   }
 
   return (

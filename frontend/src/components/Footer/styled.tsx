@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
 
 export const HeaderWrapper = styled.header`
   background: var(--c-background-darker);
-  padding: var(--main-gutter);
+  padding: ${size(2)};
 `;
 
 export const ContentWrapper = styled.div`

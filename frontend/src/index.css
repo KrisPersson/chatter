@@ -60,7 +60,9 @@
 
 --font-family: Jost, "sans-serif";
 
+/* Gutter and padding */
 
+--main-gutter: var(--scale-16);
 
 /* Media Queries */
 

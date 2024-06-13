@@ -1,13 +1,10 @@
 import { HeaderWrapper, ContentWrapper } from "./styled";
 import { Heading } from "./styled";
-import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
-
-export default function Header() {
+export default function Footer() {
   return (
     <HeaderWrapper>
       <ContentWrapper>
         <Heading>Chatter</Heading>
-        <ProfileCirclePic />
       </ContentWrapper>
     </HeaderWrapper>
   );

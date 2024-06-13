@@ -1,5 +1,6 @@
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
+import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { Container, Main } from "./styled";
 import { useNavigate } from "react-router-dom";
