@@ -5,7 +5,7 @@ import { SidebarWrapper } from "../Sidebar/styled";
 export const Container = styled.section`
   display: grid;
   grid-template-columns: 300px 1fr 300px;
-  grid-template-rows: 82px 1fr;
+  grid-template-rows: 98px 1fr;
   min-height: 100vh;
 
   ${HeaderWrapper} {

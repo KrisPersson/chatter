@@ -28,7 +28,7 @@ export const Header = styled.header`
 `;
 
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h2" }))`
-  color: var(--c-main);
+  color: var(--c-darker);
   font-size: 2rem;
   line-height: 1;
   max-width: fit-content;
