@@ -54,8 +54,6 @@
 --xl: var(--scale-32);
 --xxl: var(--scale-64);
 
-
-
 /* Fonts */
 
 --font-family: Jost, "sans-serif";
@@ -63,6 +61,7 @@
 /* Gutter and padding */
 
 --main-gutter: var(--scale-24);
+--ignore-gutter: calc(var(--main-gutter) * -1);
 
 /* Media Queries */
 

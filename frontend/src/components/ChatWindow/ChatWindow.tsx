@@ -1,9 +1,23 @@
 import "./ChatWindow.css";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:8000");
+import {
+  Wrapper,
+  Header,
+  Heading,
+  UserFooterContainer,
+  Form,
+  TextInput,
+  SendBtn,
+} from "./styled";
+const URL = "http://localhost:8000";
+const socket = io(URL);
 
-export default function ChatWindow() {
+type TChatWindowProps = {
+  chatName: string;
+};
+
+export default function ChatWindow({ chatName }: TChatWindowProps) {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
 
@@ -30,22 +44,21 @@ export default function ChatWindow() {
     console.log("Client connected!");
   });
   return (
-    <div>
+    <Wrapper>
+      <Header>
+        <Heading>{chatName}</Heading>
+      </Header>
       <ul className="chat-feed">
         {messages?.map((msg, index) => (
           <li key={index}>{msg.toString()}</li>
         ))}
       </ul>
-      <form onSubmit={sendMessage}>
-        <input
-          className=""
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button className="send-message-btn" type="submit">
-          Send
-        </button>
-      </form>
-    </div>
+      <UserFooterContainer>
+        <Form>
+          <SendBtn type="submit">Send</SendBtn>
+          <TextInput value={input} onChange={(e) => setInput(e.target.value)} />
+        </Form>
+      </UserFooterContainer>
+    </Wrapper>
   );
 }

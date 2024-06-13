@@ -6,7 +6,7 @@ import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: ${size(6.25)} 1fr;
-  gap: ${size(0.75)};
+  gap: ${size(0.5)};
 
   ${ProfileCirclePic} {
     grid-column: 1 / 2;

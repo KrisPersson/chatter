@@ -6,6 +6,7 @@ import {
   ContentWrapper,
   WelcomeText,
 } from "./styled";
+import ChatWindow from "../../components/ChatWindow/ChatWindow";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Dashboard() {
       <ContentWrapper>
         <WelcomeText>Welcome, @{username}</WelcomeText>
       </ContentWrapper>
+      <ChatWindow chatName="janne" />
     </Wrapper>
   );
 }

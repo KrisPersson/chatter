@@ -5,6 +5,7 @@ import { _headingBase } from "../../styled-components/Headings";
 export const Wrapper = styled.section`
   min-width: 100%;
   min-height: 100%;
+  position: relative;
 `;
 
 export const WelcomeText = styled(_headingBase).attrs(() => ({ as: "p" }))`
