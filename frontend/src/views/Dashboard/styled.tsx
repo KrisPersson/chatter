@@ -9,7 +9,7 @@ export const Wrapper = styled.section`
 
 export const WelcomeText = styled(_headingBase).attrs(() => ({ as: "p" }))`
   color: var(--c-main);
-  font-size: 6rem;
+  font-size: 5rem;
   line-height: 1;
   max-width: fit-content;
   font-weight: 400;
@@ -19,17 +19,17 @@ export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 164px);
+  height: calc(100vh - 210px);
 `;
 
 export const Header = styled.header`
-  border-bottom: 1px solid var(--c-black);
+  border-bottom: 1px solid var(--c-background-darker);
   padding-bottom: var(--main-gutter);
 `;
 
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h2" }))`
   color: var(--c-darker);
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
   max-width: fit-content;
   font-weight: 400;

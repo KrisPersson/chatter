@@ -1,4 +1,3 @@
-import { Button } from "../../styled-components/Button";
 import { useNavigate } from "react-router-dom";
 import {
   Header,
@@ -11,9 +10,6 @@ import {
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  function handleClick(path: string) {
-    navigate(`/${path}`);
-  }
   const username = localStorage.getItem("username") || "";
 
   return (

@@ -81,6 +81,7 @@ html {
   -webkit-text-size-adjust: 100%;
   font-family: var(--font-family);
   font-optical-sizing: auto;
+  background: var(--c-black);
 }
 
 #root {

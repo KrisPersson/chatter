@@ -7,7 +7,7 @@ export default function Header() {
     <HeaderWrapper>
       <ContentWrapper>
         <Heading>Chatter</Heading>
-        <ProfileCirclePic />
+        <ProfileCirclePic $big />
       </ContentWrapper>
     </HeaderWrapper>
   );
