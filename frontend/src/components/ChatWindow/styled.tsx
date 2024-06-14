@@ -5,17 +5,21 @@ import { _headingBase } from "../../styled-components/Headings";
 export const Wrapper = styled.article`
   min-width: 100%;
   min-height: 100%;
+  max-height: 100%;
+
   background: var(--c-background-default);
   position: absolute;
   top: 0;
   left: 0;
+  display: grid;
+  grid-template-rows: 50px 1fr 56px;
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 210px);
+  height: calc(100vh - 290px);
 `;
 
 export const Header = styled.header`
@@ -26,12 +30,26 @@ export const Header = styled.header`
 export const UserFooterContainer = styled.footer`
   background: var(--c-black);
   margin: auto var(--ignore-gutter) var(--ignore-gutter) var(--ignore-gutter);
-  position: absolute;
   min-width: 100%;
   min-height: 56px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  z-index: 6;
+  grid-row: 3 / -1;
+`;
+
+export const ChatFeed = styled.ul`
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  max-height: calc(100vh - 203px);
+  overflow-y: auto;
+  grid-row: 2 / span 1;
+
+  & > * {
+    margin-block: ${size(1.5)};
+  }
 `;
 
 export const Form = styled.form`

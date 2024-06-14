@@ -10,7 +10,6 @@ import {
 import UserChatItem from "../UserChatItem/UserChatItem";
 
 const username = localStorage.getItem("username") || "";
-
 export default function Sidebar() {
   return (
     <SidebarWrapper>

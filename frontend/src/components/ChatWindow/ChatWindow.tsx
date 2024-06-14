@@ -1,5 +1,5 @@
 import "./ChatWindow.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import {
   Wrapper,
@@ -9,7 +9,11 @@ import {
   Form,
   TextInput,
   SendBtn,
+  ChatFeed,
 } from "./styled";
+import ChatItem from "./ChatItem";
+import UserChatItem from "../UserChatItem/UserChatItem";
+import { TMessage } from "../../types";
 const URL = "http://localhost:8000";
 const socket = io(URL);
 
@@ -18,13 +22,15 @@ type TChatWindowProps = {
 };
 
 export default function ChatWindow({ chatName }: TChatWindowProps) {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<TMessage[]>([]);
   const [input, setInput] = useState("");
+  const chatFeedRef = useRef<null | HTMLUListElement>(null);
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     // Listen for chat messages from the server
-    socket.on("chat-message", (msg) => {
-      setMessages((prevMessages: string[]) => [...prevMessages, msg]);
+    socket.on("chat-message", (msg: TMessage) => {
+      setMessages((prevMessages: TMessage[]) => [...prevMessages, msg]);
     });
 
     // Cleanup on unmount
@@ -32,29 +38,39 @@ export default function ChatWindow({ chatName }: TChatWindowProps) {
       socket.off("chat-message");
     };
   }, []);
+  useEffect(() => {
+    // Scroll to the bottom whenever messages change
+    if (chatFeedRef.current) {
+      chatFeedRef.current.scrollTop = chatFeedRef.current.scrollHeight;
+    }
+    console.log("ran function");
+  }, [messages]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    socket.emit("chat-message", input);
+    socket.emit("chat-message", {
+      textBody: input,
+      senderUsername: username,
+      sentAt: new Date(),
+    });
     setInput("");
-    console.log("function ran as expected");
   };
 
   socket.on("connect", () => {
     console.log("Client connected!");
   });
   return (
-    <Wrapper>
+    <Wrapper id="chat-window">
       <Header>
         <Heading>{chatName}</Heading>
       </Header>
-      <ul className="chat-feed">
+      <ChatFeed ref={chatFeedRef}>
         {messages?.map((msg, index) => (
-          <li key={index}>{msg.toString()}</li>
+          <ChatItem key={index} msg={msg} />
         ))}
-      </ul>
+      </ChatFeed>
       <UserFooterContainer>
-        <Form>
+        <Form onSubmit={sendMessage}>
           <SendBtn type="submit">Send</SendBtn>
           <TextInput value={input} onChange={(e) => setInput(e.target.value)} />
         </Form>
