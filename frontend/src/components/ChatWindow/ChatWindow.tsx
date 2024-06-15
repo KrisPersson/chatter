@@ -12,7 +12,6 @@ import {
   ChatFeed,
 } from "./styled";
 import ChatItem from "./ChatItem";
-import UserChatItem from "../UserChatItem/UserChatItem";
 import { TMessage } from "../../types";
 const URL = "http://localhost:8000";
 const socket = io(URL);
