@@ -36,3 +36,8 @@ export async function login(username: string, password: string) {
     throw new Error("Login failed. Wrong username/password combination.");
   }
 }
+
+export async function getUserChannels(username: string) {
+  const user = await UserDb.findOne({ username });
+  return user?.channels;
+}

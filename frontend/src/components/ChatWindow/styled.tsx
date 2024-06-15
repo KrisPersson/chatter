@@ -8,9 +8,7 @@ export const Wrapper = styled.article`
   max-height: 100%;
 
   background: var(--c-background-default);
-  position: absolute;
-  top: 0;
-  left: 0;
+
   display: grid;
   grid-template-rows: 50px 1fr 56px;
 `;

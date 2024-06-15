@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
 import { List } from "../../styled-components/List";
@@ -48,10 +49,11 @@ export const HeadingWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const ChannelLink = styled(_headingBase).attrs(() => ({ as: "div" }))`
+export const ChannelLink = styled(Link)`
   color: var(--c-main);
   font-size: 1.25rem;
   line-height: 1;
   max-width: fit-content;
   font-weight: 500;
+  text-decoration: none;
 `;

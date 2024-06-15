@@ -10,7 +10,9 @@ import {
   signupCtrl,
   loginCtrl,
   verifyTokenCtrl,
+  getUserChannelsCtrl,
 } from "../controllers/user/user.controller.js";
+import { auth } from "../middleware/auth.middleware.js";
 
 // SIGNUP
 router.post("/signup", validateBody(signupInputSchema), signupCtrl);
@@ -18,5 +20,7 @@ router.post("/signup", validateBody(signupInputSchema), signupCtrl);
 router.post("/login", validateBody(loginInputSchema), loginCtrl);
 // VERIFY TOKEN
 router.post("/token", verifyTokenCtrl);
+
+router.get("/channels", auth, getUserChannelsCtrl);
 
 export default router;

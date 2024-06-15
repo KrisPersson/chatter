@@ -8,8 +8,12 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function createChannel(founderUsername: string, name: string) {
   const channelNameExists = await ChannelDb.findOne({ name });
+  const userInDb = await UserDb.findOne({ username: founderUsername });
+
   if (channelNameExists) {
     throw new Error("Channel name is already in use. Try a different one.");
+  } else if (!userInDb) {
+    throw new Error("Could not find user in database.");
   } else {
     const randomId = uuidv4();
     const channelObj: TChannel = {
@@ -22,6 +26,8 @@ export async function createChannel(founderUsername: string, name: string) {
     };
 
     const result = await ChannelDb.create(channelObj);
+    userInDb.channels.push(name);
+    await userInDb.save();
     return result;
   }
 }

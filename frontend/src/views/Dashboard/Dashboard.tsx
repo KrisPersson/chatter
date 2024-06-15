@@ -21,7 +21,6 @@ export default function Dashboard() {
       <ContentWrapper>
         <WelcomeText>Welcome, @{username}</WelcomeText>
       </ContentWrapper>
-      <ChatWindow chatName="janne" />
     </Wrapper>
   );
 }

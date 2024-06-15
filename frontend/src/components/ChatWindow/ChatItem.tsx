@@ -4,7 +4,7 @@ import { _headingBase } from "../../styled-components/Headings";
 import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
 import { TMessage } from "../../types";
 
-export const TopRow = styled.div`
+export const TopRowWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${size(0.75)};
@@ -25,7 +25,7 @@ export const Wrapper = styled.li`
   column-gap: ${size(1)};
   row-gap: ${size(0.25)};
 
-  ${TopRow} {
+  ${TopRowWrapper} {
     grid-column: 2 / -1;
   }
 
@@ -72,11 +72,11 @@ export default function ChatItem({ msg }: { msg: TMessage }) {
   return (
     <Wrapper>
       <ProfileCirclePic />
-      <TopRow>
+      <TopRowWrapper>
         <ChatUserName>@{msg.senderUsername}</ChatUserName>
         <Circle />
         <DateText>{sent}</DateText>
-      </TopRow>
+      </TopRowWrapper>
       <ChatMessage>{msg.textBody}</ChatMessage>
     </Wrapper>
   );

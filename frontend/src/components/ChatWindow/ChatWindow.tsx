@@ -1,5 +1,6 @@
 import "./ChatWindow.css";
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import {
   Wrapper,
@@ -13,6 +14,9 @@ import {
 } from "./styled";
 import ChatItem from "./ChatItem";
 import { TMessage } from "../../types";
+import { useLocation } from "react-router-dom";
+import { extractSearchParams } from "../../utils/helpers";
+
 const URL = "http://localhost:8000";
 const socket = io(URL);
 
@@ -25,7 +29,11 @@ export default function ChatWindow({ chatName }: TChatWindowProps) {
   const [input, setInput] = useState("");
   const chatFeedRef = useRef<null | HTMLUListElement>(null);
   const username = localStorage.getItem("username");
+  const location = useLocation();
 
+  const channelName = extractSearchParams(location.search);
+
+  console.log(channelName);
   useEffect(() => {
     // Listen for chat messages from the server
     socket.on("chat-message", (msg: TMessage) => {
@@ -61,7 +69,10 @@ export default function ChatWindow({ chatName }: TChatWindowProps) {
   return (
     <Wrapper id="chat-window">
       <Header>
-        <Heading>{chatName}</Heading>
+        <Heading>
+          {channelName.key === "dm" ? "@" : "#"}
+          {channelName.value}
+        </Heading>
       </Header>
       <ChatFeed ref={chatFeedRef}>
         {messages?.map((msg, index) => (

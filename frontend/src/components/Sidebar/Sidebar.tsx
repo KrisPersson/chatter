@@ -18,8 +18,7 @@ export default function Sidebar() {
           <Heading>CHANNELS</Heading>
         </HeadingWrapper>
         <SidebarList>
-          <ChannelLink>#main</ChannelLink>
-          <ChannelLink>#main</ChannelLink>
+          <ChannelLink to="/chat?channel=main">#main</ChannelLink>
         </SidebarList>
       </Section>
       <Section>
