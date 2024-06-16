@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { size } from "../../utils/helpers";
 
 const _buttonBase = styled.button`
   border: none;
@@ -23,4 +24,13 @@ export const Button = styled(_buttonBase)<{ $primary?: boolean }>`
       : "var(--c-primary-default)"};
   border: ${(props) =>
     props.$primary ? "none" : "1px solid var(--c-primary-default)"};
+`;
+
+export const SendBtn = styled.button`
+  border: none;
+  background: var(--c-primary-default);
+  color: var(--c-black);
+  margin: 0;
+  padding-inline: ${size(2)};
+  font-size: 1rem;
 `;

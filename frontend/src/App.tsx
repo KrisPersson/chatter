@@ -4,7 +4,9 @@ import LoginPage from "./views/LoginSignup/LoginPage";
 import SignupPage from "./views/LoginSignup/SignupPage";
 import AuthenticatedLayout from "./components/AuthLayout/AuthLayout";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Channels from "./views/Channels/Channels";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { verifyTokenApi } from "./api/auth";
@@ -34,6 +36,7 @@ function App() {
           {isAuthenticated && (
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/channels" element={<Channels />} />
               <Route path="/chat" element={<ChatWindow chatName="#main" />} />
             </Route>
           )}

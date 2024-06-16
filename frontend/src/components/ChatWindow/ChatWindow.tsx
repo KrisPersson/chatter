@@ -1,6 +1,6 @@
 import "./ChatWindow.css";
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { SendBtn } from "../../styled-components/Button";
 import { io } from "socket.io-client";
 import {
   Wrapper,
@@ -9,7 +9,6 @@ import {
   UserFooterContainer,
   Form,
   TextInput,
-  SendBtn,
   ChatFeed,
 } from "./styled";
 import ChatItem from "./ChatItem";

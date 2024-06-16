@@ -69,15 +69,6 @@ export const TextInput = styled.input`
   padding-inline: ${size(1.5)};
 `;
 
-export const SendBtn = styled.button`
-  border: none;
-  background: var(--c-primary-default);
-  color: var(--c-black);
-  margin: 0;
-  padding-inline: ${size(2)};
-  font-size: 1rem;
-`;
-
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h2" }))`
   color: var(--c-darker);
   font-size: 1.5rem;
