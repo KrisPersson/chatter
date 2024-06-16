@@ -15,15 +15,28 @@ const _buttonBase = styled.button`
   }
 `;
 
-export const Button = styled(_buttonBase)<{ $primary?: boolean }>`
+export const Button = styled(_buttonBase)<{
+  $primary?: boolean;
+  $danger?: boolean;
+}>`
   background: ${(props) =>
-    props.$primary ? "var(--c-primary-default)" : "transparent"};
+    props.$primary
+      ? "var(--c-primary-default)"
+      : props.$danger
+      ? "var(--c-danger)"
+      : "transparent"};
   color: ${(props) =>
     props.$primary
       ? "var(--c-background-default)"
+      : props.$danger
+      ? "var(--c-white)"
       : "var(--c-primary-default)"};
   border: ${(props) =>
-    props.$primary ? "none" : "1px solid var(--c-primary-default)"};
+    props.$primary
+      ? "none"
+      : props.$danger
+      ? "1px solid var(--c-white)"
+      : "1px solid var(--c-primary-default)"};
 `;
 
 export const SendBtn = styled.button`
@@ -33,4 +46,11 @@ export const SendBtn = styled.button`
   margin: 0;
   padding-inline: ${size(2)};
   font-size: 1rem;
+`;
+
+export const UtilityBtn = styled.button`
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 `;

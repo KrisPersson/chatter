@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   createChannel,
   joinChannel,
-  getAllChannels
+  getAllChannels,
 } from "../../model/channel/channel.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
 
@@ -59,9 +59,13 @@ export async function joinChannelCtrl(request: Request, response: Response) {
 export async function getChannelsCtrl(request: Request, response: Response) {
   try {
     const channelsInDb = await getAllChannels();
+    const mappedChans = channelsInDb.map((chan) => {
+      const { founderUsername, name, members } = chan;
+      return { founder: founderUsername, name, numMembers: members.length };
+    });
     response.json({
       success: true,
-      channels: channelsInDb,
+      channels: mappedChans,
     });
   } catch (error) {
     const err = error as Error;
