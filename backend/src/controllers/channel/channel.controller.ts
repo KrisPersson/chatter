@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   createChannel,
   joinChannel,
+  getAllChannels
 } from "../../model/channel/channel.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
 
@@ -52,5 +53,18 @@ export async function joinChannelCtrl(request: Request, response: Response) {
   } catch (error) {
     const err = error as Error;
     response.json({ success: false, message: err.message });
+  }
+}
+
+export async function getChannelsCtrl(request: Request, response: Response) {
+  try {
+    const channelsInDb = await getAllChannels();
+    response.json({
+      success: true,
+      channels: channelsInDb,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(500).json({ success: false, message: err.message });
   }
 }

@@ -61,3 +61,9 @@ export async function joinChannel(channelName: string, username: string) {
   await userInDb.save();
   return;
 }
+
+export async function getAllChannels() {
+  const channels = await ChannelDb.find();
+
+  return channels;
+}
