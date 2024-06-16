@@ -54,13 +54,14 @@
 --xl: var(--scale-32);
 --xxl: var(--scale-64);
 
-
-
 /* Fonts */
 
 --font-family: Jost, "sans-serif";
 
+/* Gutter and padding */
 
+--main-gutter: var(--scale-24);
+--ignore-gutter: calc(var(--main-gutter) * -1);
 
 /* Media Queries */
 
@@ -79,6 +80,7 @@ html {
   -webkit-text-size-adjust: 100%;
   font-family: var(--font-family);
   font-optical-sizing: auto;
+  background: var(--c-black);
 }
 
 #root {
@@ -103,6 +105,13 @@ h1, h2, h3, h4 {
 button {
   cursor: pointer;
   white-space: nowrap;
+}
+button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+button:disabled:hover {
+  opacity: 0.35;
 }
 button:hover {
   opacity: 0.7;

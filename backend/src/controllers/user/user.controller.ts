@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
-import { signup, login } from "../../model/user/user.model.js";
+import { signup, login, getUserChannels } from "../../model/user/user.model.js";
+import { extractFromJwtPayload } from "../../utils/jwt.js";
 
 export async function signupCtrl(request: Request, response: Response) {
-  const { email, password, username } = request.body;
+  const { password, username } = request.body;
   try {
-    const user = await signup(email, password, username);
+    const user = await signup(password, username);
     const result = {
       success: true,
       message: "User successfully signed up.",
@@ -36,6 +37,40 @@ export async function loginCtrl(request: Request, response: Response) {
       username: user.username,
       message: "Successfully logged in.",
       token,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}
+
+export async function verifyTokenCtrl(request: Request, response: Response) {
+  const { token } = request.body;
+  try {
+    const data = jwt.verify(token as string, process.env.JWT_SECRET as string);
+    if (!data) throw new Error("Token not valid");
+    response.json({
+      success: true,
+      data,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}
+
+export async function getUserChannelsCtrl(
+  request: Request,
+  response: Response,
+) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  try {
+    const username = extractFromJwtPayload(token || "", "username");
+
+    const userChannelsInDb = await getUserChannels(username);
+    response.json({
+      success: true,
+      channels: userChannelsInDb,
     });
   } catch (error) {
     const err = error as Error;

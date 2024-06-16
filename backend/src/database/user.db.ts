@@ -9,10 +9,6 @@ const userSignUpSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  email: {
-    required: true,
-    type: String,
-  },
   createdAt: {
     required: true,
     type: String,

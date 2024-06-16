@@ -19,24 +19,32 @@ import {
   TextLabel,
 } from "../../styled-components/TextInput";
 import { ErrorText } from "../../styled-components/ErrorText";
+import { user } from "../../api/signup";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [badLogin, setBadLogin] = useState(false);
+  const [badLogin, setBadLogin] = useState("");
 
   async function handleSubmit() {
     event?.preventDefault();
     if (username.length < 3 || password.length < 8) {
-      setBadLogin(true);
+      setBadLogin("Wrong username/password combination.");
       return;
     }
     const submitPayload = {
       username,
       password,
     };
-    console.log(submitPayload);
+
+    const loginAttempt = await user(submitPayload, "login");
+    if (loginAttempt.success === false) {
+      setBadLogin(loginAttempt.message);
+      return;
+    }
+    localStorage.setItem("userToken", loginAttempt.token);
+    navigate("/dashboard");
   }
 
   return (
@@ -66,7 +74,9 @@ export default function LoginPage() {
           />
         </TextLabel>
         {badLogin && username && password && (
-          <ErrorText>Wrong username/password combination.</ErrorText>
+          <ErrorText>
+            {badLogin || "Wrong username/password combination."}
+          </ErrorText>
         )}
         <Button $primary>Log in</Button>
         <BottomLine>

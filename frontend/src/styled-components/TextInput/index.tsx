@@ -12,6 +12,7 @@ const _inputBase = styled.input`
   outline: none;
 `;
 
+export const SearchInput = styled(_inputBase).attrs({ type: "text" })``;
 export const UsernameInput = styled(_inputBase).attrs({ type: "text" })``;
 export const PasswordInput = styled(_inputBase).attrs({ type: "password" })``;
 export const TextLabel = styled.label`

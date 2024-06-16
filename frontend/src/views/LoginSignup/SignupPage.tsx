@@ -20,21 +20,30 @@ import {
 } from "../../styled-components/TextInput";
 import { ErrorText } from "../../styled-components/ErrorText";
 import { containsNumber } from "../../utils/helpers";
+import { TUserBody, user } from "../../api/signup";
 
 export default function SignupPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [badSignup, setBadSignup] = useState("");
 
   async function handleSubmit() {
     event?.preventDefault();
-    const submitPayload = {
+    const submitPayload: TUserBody = {
       username,
       password,
       repeatPassword,
     };
-    console.log(submitPayload);
+    const signupAttempt = await user(submitPayload, "signup");
+    if (signupAttempt.success === false) {
+      setBadSignup(signupAttempt.message);
+      return;
+    }
+    localStorage.setItem("userToken", "");
+    localStorage.setItem("username", signupAttempt.username || "");
+    navigate("/login");
   }
 
   return (
@@ -81,6 +90,8 @@ export default function SignupPage() {
           </ErrorText>
         ) : repeatPassword.length >= 8 && password !== repeatPassword ? (
           <ErrorText>Passwords do not match</ErrorText>
+        ) : badSignup ? (
+          <ErrorText>{badSignup}</ErrorText>
         ) : (
           ""
         )}
