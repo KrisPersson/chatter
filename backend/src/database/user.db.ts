@@ -23,7 +23,7 @@ const userSignUpSchema = new mongoose.Schema({
   },
   relationships: {
     required: true,
-    type: [String], // relationshipId
+    type: [{ id: String, usernames: [String] }], // relationshipId
     default: [],
   },
   updatedAt: {

@@ -30,3 +30,10 @@ export async function createRelationship(usernames: string[]) {
 
   return { id, messages, usernames };
 }
+
+export async function getRelationshipById(id: string) {
+  const relationshipInDb = await RelationshipDb.findOne({ id });
+  if (!relationshipInDb)
+    throw new Error("Could not find relationship in database.");
+  return relationshipInDb;
+}

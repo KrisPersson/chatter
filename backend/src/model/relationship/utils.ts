@@ -30,7 +30,10 @@ export async function addRelationshipToInvolvedUsers(
     return await UserDb.findOne({ username: item })
       .then((result) => {
         if (result) {
-          result.relationships.push(relationshipId);
+          result.relationships.push({
+            id: relationshipId,
+            usernames: [...usernames],
+          });
           result.save();
           console.log(`Processed item ${i}:`, result);
           return result;
