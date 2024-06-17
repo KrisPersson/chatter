@@ -77,3 +77,19 @@ export async function getUserChannelsCtrl(
     response.status(401).json({ success: false, message: err.message });
   }
 }
+
+export async function getUserInfoCtrl(request: Request, response: Response) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  try {
+    const username = extractFromJwtPayload(token || "", "username");
+
+    const userChannelsInDb = await getUserChannels(username);
+    response.json({
+      success: true,
+      channels: userChannelsInDb,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}

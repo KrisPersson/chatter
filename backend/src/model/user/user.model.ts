@@ -41,3 +41,7 @@ export async function getUserChannels(username: string) {
   const user = await UserDb.findOne({ username });
   return user?.channels;
 }
+
+export async function getUserChannelsAndDms() {
+  // const user = await UserDb.findOne({ username });
+}

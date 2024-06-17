@@ -131,8 +131,8 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
           )}
         </ModalWindow>
       )}
-      <UtilityBtn title="Close modal" onClick={() => setMode("")}>
-        <SvgIcon imgSrc={"close.svg"} />
+      <UtilityBtn title="Back" onClick={() => setMode("")}>
+        <SvgIcon imgSrc={"back-arrow.svg"} />
       </UtilityBtn>
       <TextLabel>
         SEARCH CHANNELS

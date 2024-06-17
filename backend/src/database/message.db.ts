@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ChannelMessageSchema = new mongoose.Schema({
+export const ChannelMessageSchema = new mongoose.Schema({
   id: {
     required: true,
     type: String,
