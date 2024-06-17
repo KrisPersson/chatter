@@ -22,3 +22,12 @@ export function extractSearchParams(locationSearch: string) {
   }
   return { key: key.join(""), value: value.join("") };
 }
+
+export function capitalize(string: string) {
+  return string
+    .split("")
+    .map((char: string, i: number) => {
+      return i === 0 ? char.toUpperCase() : char;
+    })
+    .join("");
+}

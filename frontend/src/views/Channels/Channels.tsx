@@ -9,8 +9,10 @@ import {
 } from "./styled";
 import { Button } from "../../styled-components/Button";
 import FindChannelMode from "./FindChannelMode";
+import CreateChannelMode from "./CreateChannelMode";
+import { capitalize } from "../../utils/helpers";
 
-type TModes = "find" | "create" | "";
+export type TModes = "find" | "create" | "";
 
 export default function Channels() {
   const navigate = useNavigate();
@@ -18,14 +20,14 @@ export default function Channels() {
 
   const username = localStorage.getItem("username") || "";
 
-  function clickHandler(mode: string) {
+  function clickHandler(mode: TModes) {
     setMode(mode);
   }
 
   return (
     <Wrapper>
       <Header>
-        <Heading>Channels</Heading>
+        <Heading>Channels {mode && ` / ${capitalize(mode)}`}</Heading>
       </Header>
       <ContentWrapper>
         {!mode ? (
@@ -33,10 +35,12 @@ export default function Channels() {
             <Button $primary onClick={() => clickHandler("find")}>
               Find and join
             </Button>
-            <Button>Create</Button>
+            <Button onClick={() => clickHandler("create")}>Create</Button>
           </ButtonContainer>
         ) : mode === "find" ? (
           <FindChannelMode setMode={clickHandler} />
+        ) : mode === "create" ? (
+          <CreateChannelMode setMode={clickHandler} />
         ) : (
           ""
         )}

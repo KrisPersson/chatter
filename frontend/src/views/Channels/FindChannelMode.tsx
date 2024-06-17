@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   joinChannel,
@@ -15,6 +14,7 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Button, UtilityBtn } from "../../styled-components/Button";
 import { Table, THead, Th, Tr, Td } from "../../styled-components/Table";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
+import { TModes } from "./Channels";
 
 const Wrapper = styled.div`
   min-width: 100%;
@@ -36,13 +36,12 @@ const Wrapper = styled.div`
 `;
 
 type TFindChannelProps = {
-  setMode: (mode: string) => void;
+  setMode: (mode: TModes) => void;
 };
 
 const { channels } = await getUserChannels();
 
 export default function FindChannelMode({ setMode }: TFindChannelProps) {
-  const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
   const [showJoinModal, setShowJoinModal] = useState("");

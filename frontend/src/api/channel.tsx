@@ -56,6 +56,26 @@ export async function joinChannel(channelName: string) {
   }
 }
 
+export async function createChannel(channelName: string) {
+  try {
+    const body = { name: channelName };
+    const response = await fetch(BASE_URL + "/channel/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: ("Bearer " +
+          localStorage.getItem("userToken")) as string,
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function leaveChannel(channelName: string) {
   try {
     const body = { channelName };
