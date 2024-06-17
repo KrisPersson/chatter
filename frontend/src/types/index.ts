@@ -10,3 +10,8 @@ export type TChannel = {
   name: string;
   numMembers: number;
 };
+
+export type TBasicRelationship = {
+  id: string;
+  usernames: string[];
+};
