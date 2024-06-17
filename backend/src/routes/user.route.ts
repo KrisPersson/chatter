@@ -12,6 +12,7 @@ import {
   verifyTokenCtrl,
   getUserChannelsCtrl,
   getUserInfoCtrl,
+  getUserRelationshipsCtrl,
 } from "../controllers/user/user.controller.js";
 import { auth } from "../middleware/auth.middleware.js";
 
@@ -23,6 +24,7 @@ router.post("/login", validateBody(loginInputSchema), loginCtrl);
 router.post("/token", verifyTokenCtrl);
 
 router.get("/channels", auth, getUserChannelsCtrl);
+router.get("/relationships", auth, getUserRelationshipsCtrl);
 router.get("/", auth, getUserInfoCtrl);
 
 export default router;
