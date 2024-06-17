@@ -1,5 +1,8 @@
 import { RelationshipDb } from "../../database/relationship.db.js";
-import { getAllInvolvedUsers } from "./utils.js";
+import {
+  getAllInvolvedUsers,
+  addRelationshipToInvolvedUsers,
+} from "./utils.js";
 import { v4 as uuidv4 } from "uuid";
 
 export async function createRelationship(usernames: string[]) {
@@ -23,6 +26,7 @@ export async function createRelationship(usernames: string[]) {
     usernames,
   });
   const { id, messages } = newRelationship;
+  await addRelationshipToInvolvedUsers(usernames, id);
 
   return { id, messages, usernames };
 }
