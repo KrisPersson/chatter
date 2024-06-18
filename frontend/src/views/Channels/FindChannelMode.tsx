@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {
   joinChannel,
   leaveChannel,
+  deleteChannel,
   getAllChannels,
   getUserChannels,
 } from "../../api/channel";
@@ -15,6 +16,8 @@ import { Button, UtilityBtn } from "../../styled-components/Button";
 import { Table, THead, Th, Tr, Td } from "../../styled-components/Table";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
 import { TModes } from "./Channels";
+import { useAppDispatch } from "../../app/hooks";
+import { update } from "../../features/reFetchControl/reFetch-slice";
 
 const Wrapper = styled.div`
   min-width: 100%;
@@ -45,6 +48,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
   const [showJoinModal, setShowJoinModal] = useState("");
+  const dispatch = useAppDispatch();
 
   const username = localStorage.getItem("username") || "";
 
@@ -77,11 +81,18 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   async function handleJoin(channelName: string) {
     const result = await joinChannel(channelName);
     console.log(result);
+    dispatch(update());
   }
 
   async function handleLeave(channelName: string) {
     const result = await leaveChannel(channelName);
     console.log(result);
+    dispatch(update());
+  }
+  async function handleDelete(channelName: string) {
+    const result = await deleteChannel(channelName);
+    console.log(result);
+    dispatch(update());
   }
 
   const selectedChannel = showJoinModal
@@ -111,7 +122,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
           </Table>
           {selectedChannel?.founder === username ? (
             <Button
-              onClick={() => handleJoin(selectedChannel?.name || "")}
+              onClick={() => handleDelete(selectedChannel?.name || "")}
               $danger
             >
               DELETE CHANNEL

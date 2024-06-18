@@ -95,3 +95,23 @@ export async function leaveChannel(channelName: string) {
     console.log(error);
   }
 }
+
+export async function deleteChannel(channelName: string) {
+  try {
+    const body = { channelName };
+    const response = await fetch(BASE_URL + "/channel", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: ("Bearer " +
+          localStorage.getItem("userToken")) as string,
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
