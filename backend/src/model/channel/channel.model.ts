@@ -1,5 +1,6 @@
 import { ChannelDb } from "../../database/channel.db.js";
 import { UserDb } from "../../database/user.db.js";
+import { removeChannelFromAllMemberUsers } from "./utils.js";
 import {
   TChannel,
   TChannelMember,
@@ -66,4 +67,22 @@ export async function getAllChannels() {
   const channels = await ChannelDb.find();
 
   return channels;
+}
+
+export async function deleteChannel(founderUsername: string, name: string) {
+  const channelInDb = await ChannelDb.findOne({ founderUsername, name });
+  if (!channelInDb) {
+    throw new Error("Channel could not be found in database.");
+  }
+  const { deletedCount } = await ChannelDb.deleteOne({ founderUsername, name });
+  if (deletedCount < 1) {
+    throw new Error("Could not delete channel.");
+  }
+  const usernames = channelInDb.members.map((member) => member.username);
+  const removeFromUsers = await removeChannelFromAllMemberUsers(
+    name,
+    usernames,
+  );
+
+  return true;
 }

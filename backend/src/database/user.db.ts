@@ -21,6 +21,11 @@ const userSignUpSchema = new mongoose.Schema({
     type: [String], // channelName
     default: [],
   },
+  relationships: {
+    required: true,
+    type: [{ id: String, usernames: [String] }], // relationshipId
+    default: [],
+  },
   updatedAt: {
     required: false,
     type: String,

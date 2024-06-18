@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   createChannel,
   joinChannel,
+  deleteChannel,
   getAllChannels,
 } from "../../model/channel/channel.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
@@ -48,6 +49,24 @@ export async function joinChannelCtrl(request: Request, response: Response) {
     const result = {
       success: true,
       message: "Successfully joined channel.",
+    };
+    response.json(result);
+  } catch (error) {
+    const err = error as Error;
+    response.json({ success: false, message: err.message });
+  }
+}
+
+export async function deleteChannelCtrl(request: Request, response: Response) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  const { channelName } = request.body;
+
+  try {
+    const username = extractFromJwtPayload(token as string, "username");
+    await deleteChannel(username, channelName);
+    const result = {
+      success: true,
+      message: "Successfully deleted channel.",
     };
     response.json(result);
   } catch (error) {

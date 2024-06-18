@@ -1,7 +1,13 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
-import { signup, login, getUserChannels } from "../../model/user/user.model.js";
+import {
+  signup,
+  login,
+  getUserChannels,
+  getUserChannelsAndRelationships,
+  getUserRelationships,
+} from "../../model/user/user.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
 
 export async function signupCtrl(request: Request, response: Response) {
@@ -71,6 +77,47 @@ export async function getUserChannelsCtrl(
     response.json({
       success: true,
       channels: userChannelsInDb,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}
+
+export async function getUserRelationshipsCtrl(
+  request: Request,
+  response: Response,
+) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  try {
+    const username = extractFromJwtPayload(token || "", "username");
+
+    const { relationships } = await getUserRelationships(username);
+    response.json({
+      success: true,
+      relationships: relationships.map((rel) => {
+        return { id: rel.id, usernames: rel.usernames };
+      }),
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}
+
+export async function getUserInfoCtrl(request: Request, response: Response) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  try {
+    const username = extractFromJwtPayload(token || "", "username");
+    const userInfoInDb = await getUserChannelsAndRelationships(username);
+    console.log(userInfoInDb);
+
+    response.json({
+      success: true,
+      channels: userInfoInDb.channels,
+      relationships: userInfoInDb.relationships.map((rel) => {
+        return { id: rel.id, usernames: rel.usernames };
+      }),
     });
   } catch (error) {
     const err = error as Error;

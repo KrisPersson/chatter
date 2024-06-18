@@ -39,5 +39,18 @@ export async function login(username: string, password: string) {
 
 export async function getUserChannels(username: string) {
   const user = await UserDb.findOne({ username });
-  return user?.channels;
+  if (!user) throw new Error("Could not find user in database");
+  return { channels: user?.channels };
+}
+
+export async function getUserRelationships(username: string) {
+  const user = await UserDb.findOne({ username });
+  if (!user) throw new Error("Could not find user in database");
+  return { relationships: user?.relationships };
+}
+
+export async function getUserChannelsAndRelationships(username: string) {
+  const user = await UserDb.findOne({ username });
+  if (!user) throw new Error("Could not find user in database");
+  return { relationships: user?.relationships, channels: user?.channels };
 }

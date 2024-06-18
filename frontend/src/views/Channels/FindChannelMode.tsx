@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   joinChannel,
   leaveChannel,
+  deleteChannel,
   getAllChannels,
   getUserChannels,
 } from "../../api/channel";
@@ -15,6 +15,9 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Button, UtilityBtn } from "../../styled-components/Button";
 import { Table, THead, Th, Tr, Td } from "../../styled-components/Table";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
+import { TModes } from "./Channels";
+import { useAppDispatch } from "../../app/hooks";
+import { update } from "../../features/reFetchControl/reFetch-slice";
 
 const Wrapper = styled.div`
   min-width: 100%;
@@ -36,16 +39,17 @@ const Wrapper = styled.div`
 `;
 
 type TFindChannelProps = {
-  setMode: (mode: string) => void;
+  setMode: (mode: TModes) => void;
 };
 
 const { channels } = await getUserChannels();
 
 export default function FindChannelMode({ setMode }: TFindChannelProps) {
-  const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
   const [showJoinModal, setShowJoinModal] = useState("");
+  const [updateLocally, setUpdateLocally] = useState([1]);
+  const dispatch = useAppDispatch();
 
   const username = localStorage.getItem("username") || "";
 
@@ -56,7 +60,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
 
   useEffect(() => {
     fetchChannels();
-  }, []);
+  }, [updateLocally]);
 
   const searchResults = searchInput
     ? channelsInDb.filter((item) => item.name.includes(searchInput))
@@ -78,11 +82,24 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   async function handleJoin(channelName: string) {
     const result = await joinChannel(channelName);
     console.log(result);
+    dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
   }
 
   async function handleLeave(channelName: string) {
     const result = await leaveChannel(channelName);
     console.log(result);
+    dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
+  }
+  async function handleDelete(channelName: string) {
+    const result = await deleteChannel(channelName);
+    console.log(result);
+    dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
   }
 
   const selectedChannel = showJoinModal
@@ -112,7 +129,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
           </Table>
           {selectedChannel?.founder === username ? (
             <Button
-              onClick={() => handleJoin(selectedChannel?.name || "")}
+              onClick={() => handleDelete(selectedChannel?.name || "")}
               $danger
             >
               DELETE CHANNEL
@@ -131,8 +148,8 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
           )}
         </ModalWindow>
       )}
-      <UtilityBtn title="Close modal" onClick={() => setMode("")}>
-        <SvgIcon imgSrc={"close.svg"} />
+      <UtilityBtn title="Back" onClick={() => setMode("")}>
+        <SvgIcon imgSrc={"back-arrow.svg"} />
       </UtilityBtn>
       <TextLabel>
         SEARCH CHANNELS

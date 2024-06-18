@@ -24,7 +24,7 @@ export const Inner = styled.div`
   background: var(--c-background-darker);
   border-radius: ${size(2)} ${size(2)} 0 0;
   grid-row: 2 / -1;
-  padding: ${size(2)};
+  padding: ${size(3)};
 `;
 
 export const Heading = styled(_headingBase)`

@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8000;
 app.use(cors());
 import userRouter from "./routes/user.route.js";
 import channelRouter from "./routes/channel.route.js";
+import relationshipRouter from "./routes/relationship.route.js";
 
 mongoose.connect(process.env.DATABASE_URL as string);
 const database = mongoose.connection;
@@ -43,5 +44,6 @@ app.use(express.json());
 
 app.use("/api/user", userRouter);
 app.use("/api/channel", channelRouter);
+app.use("/api/relationship", relationshipRouter);
 
 httpServer.listen(PORT, () => console.log("Connected to server"));
