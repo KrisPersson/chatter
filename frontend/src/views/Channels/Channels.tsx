@@ -1,18 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 import { useState } from "react";
-import {
-  Header,
-  Heading,
-  Wrapper,
-  ContentWrapper,
-  ButtonContainer,
-} from "./styled";
+import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
 import { Button } from "../../styled-components/Button";
 import FindChannelMode from "./FindChannelMode";
 import CreateChannelMode from "./CreateChannelMode";
 import { capitalize } from "../../utils/helpers";
 
 export type TModes = "find" | "create" | "";
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  & > * {
+    font-size: 1.5rem;
+  }
+`;
 
 export default function Channels() {
   const navigate = useNavigate();
