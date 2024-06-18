@@ -48,6 +48,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
   const [showJoinModal, setShowJoinModal] = useState("");
+  const [updateLocally, setUpdateLocally] = useState([1]);
   const dispatch = useAppDispatch();
 
   const username = localStorage.getItem("username") || "";
@@ -59,7 +60,7 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
 
   useEffect(() => {
     fetchChannels();
-  }, []);
+  }, [updateLocally]);
 
   const searchResults = searchInput
     ? channelsInDb.filter((item) => item.name.includes(searchInput))
@@ -82,17 +83,23 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
     const result = await joinChannel(channelName);
     console.log(result);
     dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
   }
 
   async function handleLeave(channelName: string) {
     const result = await leaveChannel(channelName);
     console.log(result);
     dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
   }
   async function handleDelete(channelName: string) {
     const result = await deleteChannel(channelName);
     console.log(result);
     dispatch(update());
+    setUpdateLocally((prev) => [...prev, 1]);
+    setShowJoinModal("");
   }
 
   const selectedChannel = showJoinModal

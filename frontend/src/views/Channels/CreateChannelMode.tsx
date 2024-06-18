@@ -72,7 +72,7 @@ export default function CreateChannelMode({ setMode }: TCreateChannelProps) {
     const result = await createChannel(channelName);
     console.log(result);
     dispatch(update());
-    navigate("/dashboard");
+    setMode("");
   }
 
   return (

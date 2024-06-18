@@ -15,6 +15,10 @@ export const userInputJoinChannelSchema = z.object({
   channelName: z.string(),
 });
 
+export const userInputDeleteChannelSchema = z.object({
+  channelName: z.string(),
+});
+
 export const channelMember = z.object({
   username: z.string(),
   isOwner: z.boolean(),
