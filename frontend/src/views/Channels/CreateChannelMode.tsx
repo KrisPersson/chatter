@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import {
-  createChannel,
-  getAllChannels,
-  getUserChannels,
-} from "../../api/channel";
+import { createChannel, getAllChannels } from "../../api/channel";
 import { TChannel } from "../../types";
 import { ErrorText } from "../../styled-components/ErrorText";
 import { SearchInput, TextLabel } from "../../styled-components/TextInput";
@@ -12,6 +8,9 @@ import { size } from "../../utils/helpers";
 import { Button, UtilityBtn } from "../../styled-components/Button";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
 import { TModes } from "./Channels";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { update } from "../../features/reFetchControl/reFetch-slice";
 
 const Wrapper = styled.div`
   min-width: 100%;
@@ -54,7 +53,8 @@ type TCreateChannelProps = {
 export default function CreateChannelMode({ setMode }: TCreateChannelProps) {
   const [input, setInput] = useState("");
   const [channelNamesInDb, setChannelNamesInDb] = useState<string[]>([]);
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const username = localStorage.getItem("username") || "";
 
   async function fetchChannels() {
@@ -71,6 +71,8 @@ export default function CreateChannelMode({ setMode }: TCreateChannelProps) {
     if (channelNamesInDb.includes(input)) return;
     const result = await createChannel(channelName);
     console.log(result);
+    dispatch(update());
+    navigate("/dashboard");
   }
 
   return (

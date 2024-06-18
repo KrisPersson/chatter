@@ -27,12 +27,15 @@ export const UserFooterContainer = styled.footer`
   padding: ${size(1)} var(--main-gutter);
   bottom: 0;
   left: 0;
+  z-index: 10;
 `;
 
 export const SidebarList = styled(List)`
   display: flex;
   flex-direction: column;
   gap: ${size(1.5)};
+  max-height: 25vh;
+  overflow-y: auto;
 `;
 
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h3" }))`

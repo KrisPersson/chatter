@@ -7,6 +7,7 @@ import { verifyTokenApi } from "../../api/auth";
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
 import { TBasicRelationship } from "../../types";
+import { useAppSelector } from "../../app/hooks";
 
 const AuthenticatedLayout = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const AuthenticatedLayout = () => {
   const [userRelationships, setUserRelationships] = useState<
     TBasicRelationship[]
   >([]);
-
+  const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
   async function handleUpdateChanAndRel() {
     const userInfoFromDb = await getUserInfo();
     if (!userInfoFromDb.success)
@@ -30,7 +31,7 @@ const AuthenticatedLayout = () => {
 
   useEffect(() => {
     handleUpdateChanAndRel();
-  }, []);
+  }, [refetchState]);
 
   return (
     <Container>

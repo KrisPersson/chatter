@@ -23,14 +23,6 @@ export const ContentWrapper = styled.div`
   height: calc(100vh - 210px);
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  & > * {
-    font-size: 1.5rem;
-  }
-`;
-
 export const Header = styled.header`
   border-bottom: 1px solid var(--c-background-darker);
   padding-bottom: var(--main-gutter);
