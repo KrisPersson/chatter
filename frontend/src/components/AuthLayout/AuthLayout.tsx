@@ -7,7 +7,7 @@ import { verifyTokenApi } from "../../api/auth";
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
 import { TBasicRelationship } from "../../types";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 
 const AuthenticatedLayout = () => {
   const navigate = useNavigate();
