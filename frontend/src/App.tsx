@@ -37,7 +37,7 @@ function App() {
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/channels" element={<Channels />} />
-              <Route path="/chat" element={<ChatWindow chatName="#main" />} />
+              <Route path="/chat" element={<ChatWindow />} />
             </Route>
           )}
         </Routes>

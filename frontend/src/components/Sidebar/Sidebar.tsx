@@ -2,11 +2,11 @@ import {
   SidebarWrapper,
   Heading,
   HeadingWrapper,
-  SidebarList,
   ChannelLink,
   Section,
   UserFooterContainer,
 } from "./styled";
+import { SidebarList } from "../../styled-components/SidebarList";
 import UserChatItem from "../UserChatItem/UserChatItem";
 import { TBasicRelationship } from "../../types";
 import { useNavigate } from "react-router-dom";

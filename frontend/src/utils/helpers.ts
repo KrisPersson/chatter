@@ -31,3 +31,10 @@ export function capitalize(string: string) {
     })
     .join("");
 }
+
+export function removeSelfFromListOfUsernames(
+  usernames: string[],
+  self: string
+) {
+  return usernames.filter((username) => username !== self);
+}

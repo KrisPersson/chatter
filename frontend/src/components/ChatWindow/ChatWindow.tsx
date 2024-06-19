@@ -12,19 +12,18 @@ import {
   ChatFeed,
 } from "./styled";
 import ChatItem from "./ChatItem";
+import ChatMembersColumn from "./ChatMembersColumn";
 import { TMessage } from "../../types";
 import { useLocation } from "react-router-dom";
 import { extractSearchParams } from "../../utils/helpers";
+import { getChannel } from "../../api/channel";
 
 const URL = "http://localhost:8000";
 const socket = io(URL);
 
-type TChatWindowProps = {
-  chatName: string;
-};
-
-export default function ChatWindow({ chatName }: TChatWindowProps) {
+export default function ChatWindow() {
   const [messages, setMessages] = useState<TMessage[]>([]);
+  const [members, setMembers] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const chatFeedRef = useRef<null | HTMLUListElement>(null);
   const username = localStorage.getItem("username");
@@ -32,7 +31,18 @@ export default function ChatWindow({ chatName }: TChatWindowProps) {
 
   const channelName = extractSearchParams(location.search);
 
-  console.log(channelName);
+  async function updateChatStateFromDb() {
+    const { members } = await getChannel(channelName.value);
+    console.log(members);
+    console.log(channelName.key);
+    const memberUsernames: string[] = members.map((member) => member.username);
+    setMembers(memberUsernames.filter((member) => member !== username));
+  }
+
+  useEffect(() => {
+    updateChatStateFromDb();
+  }, []);
+
   useEffect(() => {
     // Listen for chat messages from the server
     socket.on("chat-message", (msg: TMessage) => {
@@ -78,6 +88,7 @@ export default function ChatWindow({ chatName }: TChatWindowProps) {
           <ChatItem key={index} msg={msg} />
         ))}
       </ChatFeed>
+      {channelName.key === "channel" && <ChatMembersColumn members={members} />}
       <UserFooterContainer>
         <Form onSubmit={sendMessage}>
           <SendBtn type="submit">Send</SendBtn>

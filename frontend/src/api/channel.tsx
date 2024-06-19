@@ -36,6 +36,23 @@ export async function getUserChannels() {
   }
 }
 
+export async function getChannel(channelName: string) {
+  try {
+    const response = await fetch(BASE_URL + `/channel/${channelName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: ("Bearer " +
+          localStorage.getItem("userToken")) as string,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function joinChannel(channelName: string) {
   try {
     const body = { channelName };

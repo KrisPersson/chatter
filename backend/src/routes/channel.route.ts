@@ -14,6 +14,7 @@ import {
   deleteChannelCtrl,
   leaveChannelCtrl,
   getChannelsCtrl,
+  getChannelCtrl,
 } from "../controllers/channel/channel.controller.js";
 
 // CREATE
@@ -46,5 +47,8 @@ router.delete(
 
 // GET ALL
 router.get("/", auth, getChannelsCtrl);
+
+// GET ONE
+router.get("/:name", auth, getChannelCtrl);
 
 export default router;

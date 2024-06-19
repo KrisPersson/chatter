@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
-import { List } from "../../styled-components/List";
 
 export const SidebarWrapper = styled.div`
   background: var(--c-background-darker);
@@ -28,14 +27,6 @@ export const UserFooterContainer = styled.footer`
   bottom: 0;
   left: 0;
   z-index: 10;
-`;
-
-export const SidebarList = styled(List)`
-  display: flex;
-  flex-direction: column;
-  gap: ${size(1.5)};
-  max-height: 25vh;
-  overflow-y: auto;
 `;
 
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h3" }))`

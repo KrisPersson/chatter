@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
+import { ChatMemberColumnWrapper } from "./ChatMembersColumn";
 
 export const Wrapper = styled.article`
   min-width: 100%;
@@ -11,6 +12,14 @@ export const Wrapper = styled.article`
 
   display: grid;
   grid-template-rows: 50px 1fr 56px;
+  grid-template-columns: 1fr 300px;
+
+  ${ChatMemberColumnWrapper} {
+    grid-row: 2/ -2;
+    grid-column: 2 / -1;
+    margin-right: var(--ignore-gutter);
+    margin-bottom: var(--ignore-gutter);
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -23,6 +32,7 @@ export const ContentWrapper = styled.div`
 export const Header = styled.header`
   border-bottom: 1px solid var(--c-background-darker);
   padding-bottom: var(--main-gutter);
+  grid-column: 1 / -1;
 `;
 
 export const UserFooterContainer = styled.footer`
@@ -35,11 +45,13 @@ export const UserFooterContainer = styled.footer`
   // right: 0;
   z-index: 6;
   grid-row: 3 / -1;
+  grid-column: 1 / -1;
 `;
 
 export const ChatFeed = styled.ul`
   padding-left: 0;
   margin: 0;
+  padding-block: ${size(1.5)};
   list-style: none;
   max-height: calc(100vh - 203px);
   overflow-y: auto;

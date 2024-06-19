@@ -69,6 +69,15 @@ export async function getAllChannels() {
   return channels;
 }
 
+export async function getChannel(name: string, username: string) {
+  const channel = await ChannelDb.findOne({ name });
+  if (!channel) throw new Error("Could not find channel in database.");
+  const members = channel.members.map((member) => member.username);
+  if (!members.includes(username))
+    throw new Error("User is not a member of this channel.");
+  return channel;
+}
+
 export async function deleteChannel(founderUsername: string, name: string) {
   const channelInDb = await ChannelDb.findOne({ founderUsername, name });
   if (!channelInDb) {
