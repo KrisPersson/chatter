@@ -38,7 +38,7 @@ export async function addRelationshipToInvolvedUsers(
           console.log(`Processed item ${i}:`, result);
           return result;
         } else {
-          throw new Error("Could not update relationships-arr on all userss");
+          throw new Error("Could not update relationships-arr on all users");
         }
       })
       .catch((error) => {

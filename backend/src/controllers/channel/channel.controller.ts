@@ -3,6 +3,7 @@ import {
   createChannel,
   joinChannel,
   deleteChannel,
+  leaveChannel,
   getAllChannels,
 } from "../../model/channel/channel.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
@@ -89,5 +90,23 @@ export async function getChannelsCtrl(request: Request, response: Response) {
   } catch (error) {
     const err = error as Error;
     response.status(500).json({ success: false, message: err.message });
+  }
+}
+
+export async function leaveChannelCtrl(request: Request, response: Response) {
+  const token = request.headers.authorization?.replace("Bearer ", "");
+  const { channelName } = request.body;
+
+  try {
+    const username = extractFromJwtPayload(token as string, "username");
+    await leaveChannel(channelName, username);
+    const result = {
+      success: true,
+      message: "Successfully left channel.",
+    };
+    response.json(result);
+  } catch (error) {
+    const err = error as Error;
+    response.json({ success: false, message: err.message });
   }
 }

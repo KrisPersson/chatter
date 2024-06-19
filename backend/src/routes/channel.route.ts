@@ -3,7 +3,7 @@ const router = Router();
 
 import {
   userInputCreateChannelSchema,
-  userInputJoinChannelSchema,
+  userInputJoinLeaveChannelSchema,
   userInputDeleteChannelSchema,
 } from "../schemas/channel/channel.schema.js";
 import { validateBody } from "../middleware/validate.middleware.js";
@@ -12,6 +12,7 @@ import {
   createChannelCtrl,
   joinChannelCtrl,
   deleteChannelCtrl,
+  leaveChannelCtrl,
   getChannelsCtrl,
 } from "../controllers/channel/channel.controller.js";
 
@@ -25,8 +26,15 @@ router.post(
 router.put(
   "/join",
   auth,
-  validateBody(userInputJoinChannelSchema),
+  validateBody(userInputJoinLeaveChannelSchema),
   joinChannelCtrl,
+);
+// LEAVE
+router.put(
+  "/leave",
+  auth,
+  validateBody(userInputJoinLeaveChannelSchema),
+  leaveChannelCtrl,
 );
 // DELETE
 router.delete(

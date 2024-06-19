@@ -43,10 +43,11 @@ type TFindChannelProps = {
 };
 
 const { channels } = await getUserChannels();
-
+console.log(channels);
 export default function FindChannelMode({ setMode }: TFindChannelProps) {
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
+  const [userChannelsInDb, setUserChannelsInDb] = useState<string[]>([]);
   const [showJoinModal, setShowJoinModal] = useState("");
   const [updateLocally, setUpdateLocally] = useState([1]);
   const dispatch = useAppDispatch();
@@ -54,8 +55,11 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   const username = localStorage.getItem("username") || "";
 
   async function fetchChannels() {
-    const { channels } = await getAllChannels();
-    setChannelsInDb([...channels]);
+    const allChannels = await getAllChannels();
+    const userChannels = await getUserChannels();
+
+    setChannelsInDb([...allChannels.channels]);
+    setUserChannelsInDb([...userChannels.channels.channels]);
   }
 
   useEffect(() => {
@@ -134,7 +138,8 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
             >
               DELETE CHANNEL
             </Button>
-          ) : !channels.includes(selectedChannel?.name) ? (
+          ) : userChannelsInDb.indexOf(selectedChannel?.name as string) ===
+            -1 ? (
             <Button
               onClick={() => handleJoin(selectedChannel?.name || "")}
               $primary
