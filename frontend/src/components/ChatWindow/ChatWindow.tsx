@@ -13,7 +13,7 @@ import {
 } from "./styled";
 import ChatItem from "./ChatItem";
 import ChatMembersColumn from "./ChatMembersColumn";
-import { TMessage } from "../../types";
+import { TMessage, TChannelMember } from "../../types";
 import { useLocation } from "react-router-dom";
 import { extractSearchParams } from "../../utils/helpers";
 import { getChannel } from "../../api/channel";
@@ -25,25 +25,29 @@ export default function ChatWindow() {
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [members, setMembers] = useState<string[]>([]);
   const [input, setInput] = useState("");
+  const location = useLocation();
+  const channelName = extractSearchParams(location.search);
+  const [currentChat, setCurrentChat] = useState("");
+  if (currentChat !== channelName.value) {
+    setCurrentChat(channelName.value);
+    setMessages([]);
+  }
   const chatFeedRef = useRef<null | HTMLUListElement>(null);
   const username = localStorage.getItem("username");
-  const location = useLocation();
-
-  const channelName = extractSearchParams(location.search);
 
   async function updateChatStateFromDb() {
     const { members } = await getChannel(channelName.value);
-    console.log(members);
-    console.log(channelName.key);
-    const memberUsernames: string[] = members.map((member) => member.username);
-    setMembers(memberUsernames.filter((member) => member !== username));
+    const memberUsernames: string[] = members.map(
+      (member: TChannelMember) => member.username
+    );
+    setMembers(memberUsernames);
   }
-
   useEffect(() => {
     updateChatStateFromDb();
-  }, []);
+  }, [currentChat]);
 
   useEffect(() => {
+    socket.emit("joinRoom", { room: channelName.value, username });
     // Listen for chat messages from the server
     socket.on("chat-message", (msg: TMessage) => {
       setMessages((prevMessages: TMessage[]) => [...prevMessages, msg]);
@@ -51,15 +55,15 @@ export default function ChatWindow() {
 
     // Cleanup on unmount
     return () => {
-      socket.off("chat-message");
+      socket.emit("leaveRoom", { room: currentChat, username });
+      socket.off();
     };
-  }, []);
+  }, [currentChat]);
   useEffect(() => {
     // Scroll to the bottom whenever messages change
     if (chatFeedRef.current) {
       chatFeedRef.current.scrollTop = chatFeedRef.current.scrollHeight;
     }
-    console.log("ran function");
   }, [messages]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,6 +72,7 @@ export default function ChatWindow() {
       textBody: input,
       senderUsername: username,
       sentAt: new Date(),
+      channel: currentChat,
     });
     setInput("");
   };

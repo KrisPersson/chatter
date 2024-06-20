@@ -24,11 +24,15 @@ type TChatMembersColumnProps = {
   members: string[];
 };
 
+const username = localStorage.getItem("username");
+
 export default function ChatMembersColumn({
   members,
 }: TChatMembersColumnProps) {
   const memberItems = members.map((member) => (
-    <UserChannelItem username={member} />
+    <UserChannelItem
+      username={member + (username === member ? " (you)" : "")}
+    />
   ));
 
   return (

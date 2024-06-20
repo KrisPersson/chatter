@@ -3,8 +3,6 @@ import { Request, Response, NextFunction } from "express";
 
 export function auth(req: Request, res: Response, next: NextFunction) {
   try {
-    console.log("ran auth");
-
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) {
       res.status(401).json({ success: false, message: "No token provided" });

@@ -11,7 +11,6 @@ export async function getAllChannels() {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -29,7 +28,6 @@ export async function getUserChannels() {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -66,7 +64,6 @@ export async function joinChannel(channelName: string) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -86,7 +83,6 @@ export async function createChannel(channelName: string) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -106,7 +102,6 @@ export async function leaveChannel(channelName: string) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -126,7 +121,6 @@ export async function deleteChannel(channelName: string) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

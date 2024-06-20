@@ -6,12 +6,11 @@ import { ChatMemberColumnWrapper } from "./ChatMembersColumn";
 export const Wrapper = styled.article`
   min-width: 100%;
   min-height: 100%;
-  max-height: 100%;
-
+  max-height: calc(100vh - 228px);
   background: var(--c-background-default);
 
   display: grid;
-  grid-template-rows: 50px 1fr 56px;
+  grid-template-rows: 50px 1fr 32px;
   grid-template-columns: 1fr 300px;
 
   ${ChatMemberColumnWrapper} {
@@ -26,7 +25,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 290px);
+  height: calc(100vh - 228px);
 `;
 
 export const Header = styled.header`
@@ -53,7 +52,7 @@ export const ChatFeed = styled.ul`
   margin: 0;
   padding-block: ${size(1.5)};
   list-style: none;
-  max-height: calc(100vh - 203px);
+  max-height: calc(100vh - 228px);
   overflow-y: auto;
   grid-row: 2 / span 1;
 

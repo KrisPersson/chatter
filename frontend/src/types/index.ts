@@ -3,6 +3,7 @@ export type TMessage = {
   senderUsername: string;
   sentAt?: Date;
   textBody: string;
+  channel?: string;
 };
 
 export type TChannel = {
@@ -14,4 +15,10 @@ export type TChannel = {
 export type TBasicRelationship = {
   id: string;
   usernames: string[];
+};
+
+export type TChannelMember = {
+  username: string;
+  isModerator?: boolean;
+  isOwner?: boolean;
 };

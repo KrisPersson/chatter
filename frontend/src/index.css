@@ -95,6 +95,8 @@ body {
   overflow-x: hidden;
   background: var(--c-background-default);
   min-height: 100vh;
+  max-height: 100vh;
+
 }
 
 h1, h2, h3, h4 {

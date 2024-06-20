@@ -11,7 +11,6 @@ import UserChatItem from "../UserChatItem/UserChatItem";
 import { TBasicRelationship } from "../../types";
 import { useNavigate } from "react-router-dom";
 
-const username = localStorage.getItem("username") || "";
 type TSidebarProps = {
   channels: string[];
   relationships: TBasicRelationship[];
@@ -48,7 +47,10 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
         </SidebarList>
       </Section>
       <UserFooterContainer>
-        <UserChatItem usernames={[username]} self={true} />
+        <UserChatItem
+          usernames={[localStorage.getItem("username") || ""]}
+          self={true}
+        />
       </UserFooterContainer>
     </SidebarWrapper>
   );

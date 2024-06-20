@@ -27,12 +27,32 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  // ...
   console.log("A user connected:", socket.id);
   socket.emit("chat-message", "A user connected!");
 
+  socket.on("joinRoom", (data) => {
+    socket.join(data.room);
+    io.to(data.room).emit("chat-message", {
+      textBody: `* ${data.username} entered the channel *`,
+      senderUsername: data.username,
+      sentAt: new Date(),
+      channel: data.room,
+    });
+    console.log(`${data.username} joined room: ${data.room}`);
+  });
+  socket.on("leaveRoom", (data) => {
+    socket.leave(data.room);
+    io.to(data.room).emit("chat-message", {
+      textBody: `* ${data.username} left the channel *`,
+      senderUsername: data.username,
+      sentAt: new Date(),
+      channel: data.room,
+    });
+    console.log(`${data.username} left room: ${data.room}`);
+  });
+
   socket.on("chat-message", (msg) => {
-    io.emit("chat-message", msg); // Broadcast the message to all connected clients
+    io.to(msg.channel).emit("chat-message", msg);
   });
 
   socket.on("disconnect", () => {
