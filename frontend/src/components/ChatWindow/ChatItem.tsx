@@ -69,13 +69,17 @@ export const Circle = styled.div`
 export default function ChatItem({ msg }: { msg: TMessage }) {
   const date = new Date(msg.sentAt || "");
   const sent = date ? date.toLocaleString() : "-";
+  const parsedDate = sent
+    .split("")
+    .map((char) => (char === "/" ? "-" : char))
+    .join("");
   return (
     <Wrapper>
       <ProfileCirclePic />
       <TopRowWrapper>
         <ChatUserName>@{msg.senderUsername}</ChatUserName>
         <Circle />
-        <DateText>{sent}</DateText>
+        <DateText>{parsedDate}</DateText>
       </TopRowWrapper>
       <ChatMessage>{msg.textBody}</ChatMessage>
     </Wrapper>

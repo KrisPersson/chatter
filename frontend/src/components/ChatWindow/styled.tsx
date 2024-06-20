@@ -14,10 +14,10 @@ export const Wrapper = styled.article`
   grid-template-columns: 1fr 300px;
 
   ${ChatMemberColumnWrapper} {
-    grid-row: 2/ -2;
+    grid-row: 1/ -2;
     grid-column: 2 / -1;
-    margin-right: var(--ignore-gutter);
-    margin-bottom: var(--ignore-gutter);
+    margin: var(--ignore-gutter);
+    margin-left: unset;
   }
 `;
 
@@ -31,7 +31,8 @@ export const ContentWrapper = styled.div`
 export const Header = styled.header`
   border-bottom: 1px solid var(--c-background-darker);
   padding-bottom: var(--main-gutter);
-  grid-column: 1 / -1;
+  margin-right: var(--main-gutter);
+  grid-column: 1 / -2;
 `;
 
 export const UserFooterContainer = styled.footer`
@@ -55,6 +56,7 @@ export const ChatFeed = styled.ul`
   max-height: calc(100vh - 228px);
   overflow-y: auto;
   grid-row: 2 / span 1;
+  grid-column: 1 / span 1;
 
   & > * {
     margin-block: ${size(1.5)};

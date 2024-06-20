@@ -68,6 +68,7 @@ export default function ChatWindow() {
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!input) return;
     socket.emit("chat-message", {
       textBody: input,
       senderUsername: username,
@@ -97,7 +98,11 @@ export default function ChatWindow() {
       <UserFooterContainer>
         <Form onSubmit={sendMessage}>
           <SendBtn type="submit">Send</SendBtn>
-          <TextInput value={input} onChange={(e) => setInput(e.target.value)} />
+          <TextInput
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder='Type a message a hit "Enter"'
+          />
         </Form>
       </UserFooterContainer>
     </Wrapper>
