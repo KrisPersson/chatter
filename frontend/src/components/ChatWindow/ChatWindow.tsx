@@ -36,11 +36,12 @@ export default function ChatWindow() {
   const username = localStorage.getItem("username");
 
   async function updateChatStateFromDb() {
-    const { members } = await getChannel(channelName.value);
+    const { members, messages } = await getChannel(channelName.value);
     const memberUsernames: string[] = members.map(
       (member: TChannelMember) => member.username
     );
     setMembers(memberUsernames);
+    setMessages(messages);
   }
   useEffect(() => {
     updateChatStateFromDb();

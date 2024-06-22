@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { config } from "dotenv";
 import cors from "cors";
+import { postChannelMessageToDb } from "./model/message/channel.model.js";
 config();
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -32,27 +33,31 @@ io.on("connection", (socket) => {
 
   socket.on("joinRoom", (data) => {
     socket.join(data.room);
-    io.to(data.room).emit("chat-message", {
-      textBody: `* ${data.username} entered the channel *`,
-      senderUsername: data.username,
-      sentAt: new Date(),
-      channel: data.room,
-    });
+
     console.log(`${data.username} joined room: ${data.room}`);
   });
   socket.on("leaveRoom", (data) => {
     socket.leave(data.room);
-    io.to(data.room).emit("chat-message", {
-      textBody: `* ${data.username} left the channel *`,
-      senderUsername: data.username,
-      sentAt: new Date(),
-      channel: data.room,
-    });
+
     console.log(`${data.username} left room: ${data.room}`);
   });
 
-  socket.on("chat-message", (msg) => {
-    io.to(msg.channel).emit("chat-message", msg);
+  socket.on("chat-message", async (msg) => {
+    try {
+      const message = {
+        senderUsername: msg.senderUsername,
+        sentAt: new Date(msg.sentAt),
+        textBody: msg.textBody,
+        channel: msg.channel,
+      };
+      await postChannelMessageToDb(message);
+      io.to(msg.channel).emit("chat-message", msg);
+    } catch (error) {
+      console.log(
+        "Failed to save user message to db, message not emitted in chat.",
+        error,
+      );
+    }
   });
 
   socket.on("disconnect", () => {

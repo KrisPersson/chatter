@@ -35,19 +35,33 @@ export const Heading = styled(_headingBase).attrs(() => ({ as: "h3" }))`
   line-height: 1;
   max-width: fit-content;
   font-weight: 500;
-  margin-bottom: ${size(0.5)};
 `;
 
 export const HeadingWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${size(0.5)};
 `;
 
 export const ChannelLink = styled(Link)`
   color: var(--c-main);
-  font-size: 1.25rem;
+  font-size: 1rem;
   line-height: 1;
   max-width: fit-content;
   font-weight: 500;
   text-decoration: none;
+`;
+
+export const NavLink = styled(Link)`
+  color: var(--c-darker);
+  font-size: 1rem;
+  line-height: 0.55;
+  max-width: fit-content;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;

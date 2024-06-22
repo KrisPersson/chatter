@@ -26,10 +26,6 @@ const createNewChannelSchema = new mongoose.Schema({
           required: true,
           type: String,
         },
-        senderId: {
-          required: true,
-          type: String,
-        },
         senderUsername: {
           required: true,
           type: String,

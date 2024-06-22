@@ -31,6 +31,7 @@ export default function ChatMembersColumn({
 }: TChatMembersColumnProps) {
   const memberItems = members.map((member) => (
     <UserChannelItem
+      key={`member${member}`}
       username={member + (username === member ? " (you)" : "")}
     />
   ));

@@ -5,6 +5,7 @@ import {
   ChannelLink,
   Section,
   UserFooterContainer,
+  NavLink,
 } from "./styled";
 import { SidebarList } from "../../styled-components/SidebarList";
 import UserChatItem from "../UserChatItem/UserChatItem";
@@ -33,6 +34,7 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
       <Section>
         <HeadingWrapper>
           <Heading onClick={() => navigate("/channels")}>CHANNELS</Heading>
+          <NavLink to="/channels">+</NavLink>
         </HeadingWrapper>
         <SidebarList>
           {channelListElems.length > 0 && channelListElems}
@@ -41,6 +43,7 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
       <Section>
         <HeadingWrapper>
           <Heading>DIRECT MESSAGES</Heading>
+          <NavLink to="/users">+</NavLink>
         </HeadingWrapper>
         <SidebarList>
           {relationshipListElems.length > 0 && relationshipListElems}
