@@ -7,6 +7,7 @@ import {
   getUserChannels,
   getUserChannelsAndRelationships,
   getUserRelationships,
+  getAllUsers,
 } from "../../model/user/user.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
 
@@ -118,6 +119,33 @@ export async function getUserInfoCtrl(request: Request, response: Response) {
       relationships: userInfoInDb.relationships.map((rel) => {
         return { id: rel.id, usernames: rel.usernames };
       }),
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(401).json({ success: false, message: err.message });
+  }
+}
+
+export async function getAllUsersCtrl(request: Request, response: Response) {
+  try {
+    const usersInDb = await getAllUsers();
+    const parsedUsers = usersInDb.map((user) => {
+      return {
+        username: user.username,
+        relationships: user.relationships.map((relation) => {
+          return {
+            id: relation.id,
+            usernames: relation.usernames.filter(
+              (name) => name !== user.username,
+            ),
+          };
+        }),
+      };
+    });
+
+    response.json({
+      success: true,
+      users: parsedUsers,
     });
   } catch (error) {
     const err = error as Error;

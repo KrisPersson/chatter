@@ -1,0 +1,50 @@
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+import { useState } from "react";
+import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
+import { Button } from "../../styled-components/Button";
+import FindUserMode from "./FindUserMode";
+import CreateChannelMode from "./CreateChannelMode";
+import { capitalize } from "../../utils/helpers";
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  & > * {
+    font-size: 1.5rem;
+  }
+`;
+
+export type TModes = "find" | "";
+
+export default function Users() {
+  const navigate = useNavigate();
+  const [mode, setMode] = useState<TModes>("");
+
+  const username = localStorage.getItem("username") || "";
+
+  function clickHandler(mode: TModes) {
+    setMode(mode);
+  }
+
+  return (
+    <Wrapper>
+      <Header>
+        <Heading>Users</Heading>
+      </Header>
+      <ContentWrapper>
+        {!mode ? (
+          <ButtonContainer>
+            <Button $primary onClick={() => clickHandler("find")}>
+              Find Users
+            </Button>
+          </ButtonContainer>
+        ) : mode === "find" ? (
+          <FindUserMode setMode={clickHandler} />
+        ) : (
+          ""
+        )}
+      </ContentWrapper>
+    </Wrapper>
+  );
+}

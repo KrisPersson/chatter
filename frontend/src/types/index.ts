@@ -22,3 +22,13 @@ export type TChannelMember = {
   isModerator?: boolean;
   isOwner?: boolean;
 };
+
+export type TUser = {
+  id?: string;
+  username: string;
+  relationships?: {
+    id?: string;
+    usernames: string[];
+  };
+  channels?: string[];
+};

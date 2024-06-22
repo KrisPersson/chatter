@@ -54,3 +54,8 @@ export async function getUserChannelsAndRelationships(username: string) {
   if (!user) throw new Error("Could not find user in database");
   return { relationships: user?.relationships, channels: user?.channels };
 }
+
+export async function getAllUsers() {
+  const users = await UserDb.find();
+  return users;
+}
