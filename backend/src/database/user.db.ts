@@ -26,6 +26,11 @@ const userSignUpSchema = new mongoose.Schema({
     type: [{ id: String, usernames: [String] }], // relationshipId
     default: [],
   },
+  onlineStatus: {
+    required: true,
+    type: String,
+    default: "offline",
+  },
   updatedAt: {
     required: false,
     type: String,

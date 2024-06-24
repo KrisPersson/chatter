@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Container, Main } from "./styled";
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
-import { TBasicRelationship } from "../../types";
+import { TBasicRelationship, TOnlineStatusProp } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 
@@ -14,13 +14,16 @@ const AuthenticatedLayout = () => {
   const [userRelationships, setUserRelationships] = useState<
     TBasicRelationship[]
   >([]);
+  const [userOnlineStatus, setUserOnlineStatus] = useState("offline");
   const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
 
   async function handleUpdateChanAndRel() {
     const userInfoFromDb = await getUserInfo();
+    console.log(userInfoFromDb);
     if (!userInfoFromDb.success) return navigate("/login");
     setUserChannels([...userInfoFromDb.channels]);
     setUserRelationships([...userInfoFromDb.relationships]);
+    setUserOnlineStatus(userInfoFromDb.onlineStatus);
   }
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const AuthenticatedLayout = () => {
 
   return (
     <Container>
-      <Header />
+      <Header onlineStatus={userOnlineStatus as TOnlineStatusProp} />
       <Sidebar channels={userChannels} relationships={userRelationships} />
       <Main>
         <Outlet />

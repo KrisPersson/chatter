@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { _headingBase } from "../../styled-components/Headings";
+import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
 
 export const HeaderWrapper = styled.header`
   background: var(--c-background-darker);
   padding: var(--main-gutter);
+  ${ProfileCirclePic} {
+    cursor: pointer;
+  }
 `;
 
 export const ContentWrapper = styled.div`

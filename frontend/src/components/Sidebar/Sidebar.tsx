@@ -57,7 +57,7 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
       </Section>
       <Section>
         <HeadingWrapper>
-          <Heading>DIRECT MESSAGES</Heading>
+          <Heading onClick={() => navigate("/users")}>DIRECT MESSAGES</Heading>
           <NavLink to="/users">+</NavLink>
         </HeadingWrapper>
         <SidebarList>

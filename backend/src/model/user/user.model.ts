@@ -52,7 +52,23 @@ export async function getUserRelationships(username: string) {
 export async function getUserChannelsAndRelationships(username: string) {
   const user = await UserDb.findOne({ username });
   if (!user) throw new Error("Could not find user in database");
-  return { relationships: user?.relationships, channels: user?.channels };
+  return {
+    relationships: user?.relationships,
+    channels: user?.channels,
+    onlineStatus: user?.onlineStatus,
+  };
+}
+export type TOnlineStatusProp = "online" | "busy" | "away" | "offline";
+
+export async function updateUserOnlineStatus(
+  username: string,
+  status: TOnlineStatusProp,
+) {
+  const user = await UserDb.findOne({ username });
+  if (!user) throw new Error("Could not find user in database");
+  user.onlineStatus = status;
+  await user.save();
+  return;
 }
 
 export async function getAllUsers() {

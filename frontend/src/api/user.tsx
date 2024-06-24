@@ -6,6 +6,7 @@ export type TUserBody = {
   password: string;
   repeatPassword?: string;
 };
+import { TOnlineStatusProp } from "../types";
 
 export async function getUserInfo() {
   try {
@@ -33,6 +34,25 @@ export async function getAllUsers() {
         authorization: ("Bearer " +
           localStorage.getItem("userToken")) as string,
       },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateOnlineStatus(status: TOnlineStatusProp) {
+  try {
+    const body = { status };
+    const response = await fetch(BASE_URL + "/user/status", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: ("Bearer " +
+          localStorage.getItem("userToken")) as string,
+      },
+      body: JSON.stringify(body),
     });
     const data = await response.json();
     return data;

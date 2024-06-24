@@ -33,3 +33,5 @@ export type TUser = {
   channels?: string[];
   memberSince: string;
 };
+
+export type TOnlineStatusProp = "online" | "busy" | "away" | "offline";

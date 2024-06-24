@@ -5,6 +5,7 @@ import { validateBody } from "../middleware/validate.middleware.js";
 import {
   signupInputSchema,
   loginInputSchema,
+  updateOnlineStatusSchema,
 } from "../schemas/user/user.schema.js";
 import {
   signupCtrl,
@@ -14,6 +15,7 @@ import {
   getUserInfoCtrl,
   getUserRelationshipsCtrl,
   getAllUsersCtrl,
+  updateOnlineStatusCtrl,
 } from "../controllers/user/user.controller.js";
 import { auth } from "../middleware/auth.middleware.js";
 
@@ -23,6 +25,13 @@ router.post("/signup", validateBody(signupInputSchema), signupCtrl);
 router.post("/login", validateBody(loginInputSchema), loginCtrl);
 // VERIFY TOKEN
 router.post("/token", verifyTokenCtrl);
+
+router.put(
+  "/status",
+  auth,
+  validateBody(updateOnlineStatusSchema),
+  updateOnlineStatusCtrl,
+);
 
 router.get("/all", auth, getAllUsersCtrl);
 router.get("/channels", auth, getUserChannelsCtrl);

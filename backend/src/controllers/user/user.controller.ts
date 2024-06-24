@@ -8,6 +8,7 @@ import {
   getUserChannelsAndRelationships,
   getUserRelationships,
   getAllUsers,
+  updateUserOnlineStatus,
 } from "../../model/user/user.model.js";
 import { extractFromJwtPayload } from "../../utils/jwt.js";
 
@@ -66,6 +67,24 @@ export async function verifyTokenCtrl(request: Request, response: Response) {
   }
 }
 
+export async function updateOnlineStatusCtrl(
+  request: Request,
+  response: Response,
+) {
+  try {
+    const token = request.headers.authorization?.replace("Bearer ", "");
+    const username = extractFromJwtPayload(token || "", "username");
+    const { status } = request.body;
+    await updateUserOnlineStatus(username, status);
+    response.json({
+      success: true,
+    });
+  } catch (error) {
+    const err = error as Error;
+    response.status(400).json({ success: false, message: err.message });
+  }
+}
+
 export async function getUserChannelsCtrl(
   request: Request,
   response: Response,
@@ -89,8 +108,8 @@ export async function getUserRelationshipsCtrl(
   request: Request,
   response: Response,
 ) {
-  const token = request.headers.authorization?.replace("Bearer ", "");
   try {
+    const token = request.headers.authorization?.replace("Bearer ", "");
     const username = extractFromJwtPayload(token || "", "username");
 
     const { relationships } = await getUserRelationships(username);
@@ -102,22 +121,24 @@ export async function getUserRelationshipsCtrl(
     });
   } catch (error) {
     const err = error as Error;
-    response.status(401).json({ success: false, message: err.message });
+    response.status(400).json({ success: false, message: err.message });
   }
 }
 
 export async function getUserInfoCtrl(request: Request, response: Response) {
-  const token = request.headers.authorization?.replace("Bearer ", "");
   try {
+    const token = request.headers.authorization?.replace("Bearer ", "");
     const username = extractFromJwtPayload(token || "", "username");
-    const userInfoInDb = await getUserChannelsAndRelationships(username);
+    const { channels, relationships, onlineStatus } =
+      await getUserChannelsAndRelationships(username);
 
     response.json({
       success: true,
-      channels: userInfoInDb.channels,
-      relationships: userInfoInDb.relationships.map((rel) => {
+      channels,
+      relationships: relationships.map((rel) => {
         return { id: rel.id, usernames: rel.usernames };
       }),
+      onlineStatus,
     });
   } catch (error) {
     const err = error as Error;

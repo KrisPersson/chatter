@@ -21,8 +21,6 @@ export default function Channels() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<TModes>("");
 
-  const username = localStorage.getItem("username") || "";
-
   function clickHandler(mode: TModes) {
     setMode(mode);
   }
