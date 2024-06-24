@@ -8,4 +8,8 @@ export const SidebarList = styled(List)`
   gap: ${size(1.5)};
   max-height: 25vh;
   overflow-y: auto;
+
+  & > * {
+    cursor: pointer;
+  }
 `;

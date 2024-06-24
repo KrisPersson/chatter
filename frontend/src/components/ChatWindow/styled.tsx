@@ -28,11 +28,13 @@ export const ContentWrapper = styled.div`
   height: calc(100vh - 228px);
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<{
+  $isDm?: boolean;
+}>`
   border-bottom: 1px solid var(--c-background-darker);
   padding-bottom: var(--main-gutter);
-  margin-right: var(--main-gutter);
-  grid-column: 1 / -2;
+  margin-right: ${(props) => (props.$isDm ? "unset" : "var(--main-gutter)")};
+  grid-column: ${(props) => (props.$isDm ? "1 / -1" : "1 / -2")};
 `;
 
 export const UserFooterContainer = styled.footer`

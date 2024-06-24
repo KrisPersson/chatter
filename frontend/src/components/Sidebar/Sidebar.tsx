@@ -11,6 +11,7 @@ import { SidebarList } from "../../styled-components/SidebarList";
 import UserChatItem from "../UserChatItem/UserChatItem";
 import { TBasicRelationship } from "../../types";
 import { useNavigate } from "react-router-dom";
+import { createOrGetRelationship } from "../../api/relationship";
 
 type TSidebarProps = {
   channels: string[];
@@ -19,6 +20,12 @@ type TSidebarProps = {
 
 export default function Sidebar({ channels, relationships }: TSidebarProps) {
   const navigate = useNavigate();
+  const username = localStorage.getItem("username") || "";
+  async function clickUserHandler(otherParties: string[]) {
+    const { relationshipId } = await createOrGetRelationship(otherParties);
+    navigate(`/chat?dm=${relationshipId}`);
+  }
+
   const channelListElems = channels.map((chan) => {
     return (
       <ChannelLink key={chan} to={`/chat?channel=${chan}`}>
@@ -27,7 +34,15 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
     );
   });
   const relationshipListElems = relationships.map((rel) => {
-    return <UserChatItem key={rel.id} usernames={rel.usernames} />;
+    return (
+      <UserChatItem
+        key={rel.id}
+        usernames={rel.usernames}
+        clickUserHandler={() =>
+          clickUserHandler(rel.usernames.filter((user) => user !== username))
+        }
+      />
+    );
   });
   return (
     <SidebarWrapper>

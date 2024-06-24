@@ -92,14 +92,15 @@ export default function ChatWindow() {
   socket.on("connect", () => {
     console.log("Client connected!");
   });
-  console.log(messages);
   return (
     <Wrapper id="chat-window">
-      <Header>
+      <Header $isDm={channelName.key === "dm"}>
         <Heading>
           {channelName.key === "dm" ? "" : "#"}
           {channelName.key === "dm" && members.length > 0
-            ? members.map((member) => <UserChatItem usernames={[member]} />)
+            ? members.map((member) => (
+                <UserChatItem usernames={[member]} key={"user " + member} />
+              ))
             : channelName.value}
         </Heading>
       </Header>

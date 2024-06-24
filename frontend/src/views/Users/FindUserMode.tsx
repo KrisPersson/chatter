@@ -58,7 +58,6 @@ export default function FindUserlMode({ setMode }: TFindUserProps) {
   useEffect(() => {
     fetchUsers();
   }, [updateLocally]);
-  console.log(usersInDb);
   const searchResults = searchInput
     ? usersInDb.filter((item) => item.username.includes(searchInput))
     : usersInDb;

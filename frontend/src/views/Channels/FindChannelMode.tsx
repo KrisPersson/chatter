@@ -42,8 +42,6 @@ type TFindChannelProps = {
   setMode: (mode: TModes) => void;
 };
 
-const { channels } = await getUserChannels();
-console.log(channels);
 export default function FindChannelMode({ setMode }: TFindChannelProps) {
   const [searchInput, setSearchInput] = useState("");
   const [channelsInDb, setChannelsInDb] = useState<TChannel[]>([]);
@@ -84,23 +82,20 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
   }
 
   async function handleJoin(channelName: string) {
-    const result = await joinChannel(channelName);
-    console.log(result);
+    await joinChannel(channelName);
     dispatch(update());
     setUpdateLocally((prev) => [...prev, 1]);
     setShowJoinModal("");
   }
 
   async function handleLeave(channelName: string) {
-    const result = await leaveChannel(channelName);
-    console.log(result);
+    await leaveChannel(channelName);
     dispatch(update());
     setUpdateLocally((prev) => [...prev, 1]);
     setShowJoinModal("");
   }
   async function handleDelete(channelName: string) {
-    const result = await deleteChannel(channelName);
-    console.log(result);
+    await deleteChannel(channelName);
     dispatch(update());
     setUpdateLocally((prev) => [...prev, 1]);
     setShowJoinModal("");

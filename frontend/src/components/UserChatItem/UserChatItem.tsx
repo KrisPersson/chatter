@@ -4,9 +4,14 @@ import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
 type TUserChatItemProps = {
   usernames: string[];
   self?: boolean;
+  clickUserHandler?: () => void;
 };
 
-export default function UserChatItem({ usernames, self }: TUserChatItemProps) {
+export default function UserChatItem({
+  usernames,
+  self,
+  clickUserHandler,
+}: TUserChatItemProps) {
   const username = localStorage.getItem("username") || "";
   const filteredUsernames = usernames.filter(
     (user) => user !== username || self
@@ -20,7 +25,7 @@ export default function UserChatItem({ usernames, self }: TUserChatItemProps) {
   ));
 
   return (
-    <Wrapper>
+    <Wrapper onClick={clickUserHandler}>
       {ProfilePics.length > 0 && ProfilePics}
       {Usernames.length > 0 && Usernames}
     </Wrapper>
