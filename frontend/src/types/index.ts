@@ -31,4 +31,5 @@ export type TUser = {
     usernames: string[];
   };
   channels?: string[];
+  memberSince: string;
 };

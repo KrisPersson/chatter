@@ -12,11 +12,13 @@ import {
   ChatFeed,
 } from "./styled";
 import ChatItem from "./ChatItem";
+import UserChatItem from "../UserChatItem/UserChatItem";
 import ChatMembersColumn from "./ChatMembersColumn";
 import { TMessage, TChannelMember } from "../../types";
 import { useLocation } from "react-router-dom";
 import { extractSearchParams } from "../../utils/helpers";
 import { getChannel } from "../../api/channel";
+import { getRelationship } from "../../api/relationship";
 
 const URL = "http://localhost:8000";
 const socket = io(URL);
@@ -36,13 +38,21 @@ export default function ChatWindow() {
   const username = localStorage.getItem("username");
 
   async function updateChatStateFromDb() {
-    const { members, messages } = await getChannel(channelName.value);
-    const memberUsernames: string[] = members.map(
-      (member: TChannelMember) => member.username
-    );
-    setMembers(memberUsernames);
-    setMessages(messages);
+    if (channelName.key === "channel") {
+      const { members, messages } = await getChannel(channelName.value);
+      const memberUsernames: string[] = members.map(
+        (member: TChannelMember) => member.username
+      );
+      setMembers(memberUsernames);
+      setMessages(messages);
+    } else if (channelName.key === "dm") {
+      const { relationship } = await getRelationship(channelName.value);
+      const { usernames, messages } = relationship;
+      setMembers(usernames);
+      setMessages(messages);
+    }
   }
+
   useEffect(() => {
     updateChatStateFromDb();
   }, [currentChat]);
@@ -75,19 +85,22 @@ export default function ChatWindow() {
       senderUsername: username,
       sentAt: new Date(),
       channel: currentChat,
+      channelType: channelName.key,
     });
     setInput("");
   };
-
   socket.on("connect", () => {
     console.log("Client connected!");
   });
+  console.log(messages);
   return (
     <Wrapper id="chat-window">
       <Header>
         <Heading>
-          {channelName.key === "dm" ? "@" : "#"}
-          {channelName.value}
+          {channelName.key === "dm" ? "" : "#"}
+          {channelName.key === "dm" && members.length > 0
+            ? members.map((member) => <UserChatItem usernames={[member]} />)
+            : channelName.value}
         </Heading>
       </Header>
       <ChatFeed ref={chatFeedRef}>

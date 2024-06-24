@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
 import { Button } from "../../styled-components/Button";
 import FindUserMode from "./FindUserMode";
-import CreateChannelMode from "./CreateChannelMode";
 import { capitalize } from "../../utils/helpers";
 
 export const ButtonContainer = styled.div`
@@ -30,7 +29,7 @@ export default function Users() {
   return (
     <Wrapper>
       <Header>
-        <Heading>Users</Heading>
+        <Heading>Users{mode && ` / ${capitalize(mode)}`}</Heading>
       </Header>
       <ContentWrapper>
         {!mode ? (

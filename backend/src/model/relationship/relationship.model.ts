@@ -1,3 +1,4 @@
+import { UserDb } from "../../database/user.db.js";
 import { RelationshipDb } from "../../database/relationship.db.js";
 import {
   getAllInvolvedUsers,
@@ -31,9 +32,31 @@ export async function createRelationship(usernames: string[]) {
   return { id, messages, usernames };
 }
 
-export async function getRelationshipById(id: string) {
+export async function getRelationshipById(id: string, username: string) {
   const relationshipInDb = await RelationshipDb.findOne({ id });
   if (!relationshipInDb)
     throw new Error("Could not find relationship in database.");
-  return { id: relationshipInDb.id, usernames: relationshipInDb.usernames };
+  if (!relationshipInDb.usernames.includes(username)) {
+    throw new Error("User is not part of this relationship.");
+  }
+  const { usernames, messages } = relationshipInDb;
+  return { id, usernames, messages };
+}
+
+export async function createOrGetRelationshipByUsernames(usernames: string[]) {
+  const relationshipInDb = await RelationshipDb.findOne()
+    .where("usernames")
+    .all([...usernames]);
+
+  if (relationshipInDb) {
+    return relationshipInDb;
+  }
+  const newRelationship = await RelationshipDb.create({
+    id: uuidv4(),
+    messages: [],
+    usernames,
+  });
+  const { id } = newRelationship;
+  await addRelationshipToInvolvedUsers(usernames, id);
+  return newRelationship;
 }

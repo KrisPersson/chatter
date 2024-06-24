@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import {
-  joinChannel,
-  leaveChannel,
-  deleteChannel,
-  getAllChannels,
-  getUserChannels,
-} from "../../api/channel";
+import { getAllUsers } from "../../api/user";
 import { TUser } from "../../types";
 import { ErrorText } from "../../styled-components/ErrorText";
 import { SearchInput, TextLabel } from "../../styled-components/TextInput";
@@ -15,9 +9,12 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Button, UtilityBtn } from "../../styled-components/Button";
 import { Table, THead, Th, Tr, Td } from "../../styled-components/Table";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
+import UserChatItem from "../../components/UserChatItem/UserChatItem";
 import { TModes } from "./Users";
 import { useAppDispatch } from "../../app/hooks";
 import { update } from "../../features/reFetchControl/reFetch-slice";
+import { useNavigate } from "react-router-dom";
+import { createOrGetRelationship } from "../../api/relationship";
 
 const Wrapper = styled.div`
   min-width: 100%;
@@ -45,114 +42,101 @@ type TFindUserProps = {
 export default function FindUserlMode({ setMode }: TFindUserProps) {
   const [searchInput, setSearchInput] = useState("");
   const [usersInDb, setUsersInDb] = useState<TUser[]>([]);
-  const [showJoinModal, setShowJoinModal] = useState("");
+  const [showUserModal, setShowUserModal] = useState("");
   const [updateLocally, setUpdateLocally] = useState([1]);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const username = localStorage.getItem("username") || "";
 
   async function fetchUsers() {
-    const allUsers = await getAllUsers();
+    const { users } = await getAllUsers();
 
-    setUsersInDb([...allUsers.users]);
+    setUsersInDb([...users.filter((user) => user.username !== username)]);
   }
 
   useEffect(() => {
     fetchUsers();
   }, [updateLocally]);
-
+  console.log(usersInDb);
   const searchResults = searchInput
-    ? channelsInDb.filter((item) => item.name.includes(searchInput))
-    : channelsInDb;
+    ? usersInDb.filter((item) => item.username.includes(searchInput))
+    : usersInDb;
 
   const searchItems = searchResults.map((item) => {
     return (
-      <Tr key={item.name} onClick={() => setShowJoinModal(item.name)}>
-        <Td>#{item.name}</Td>
-        <Td>{item.numMembers}</Td>
+      <Tr key={item.username} onClick={() => setShowUserModal(item.username)}>
+        <Td>
+          <UserChatItem usernames={[item.username]} />
+        </Td>
       </Tr>
     );
   });
 
-  function resetJoinModal() {
-    setShowJoinModal("");
+  function resetUserModal() {
+    setShowUserModal("");
   }
 
-  async function handleJoin(channelName: string) {
-    const result = await joinChannel(channelName);
-    console.log(result);
+  async function handleDm(receiverUsername: string) {
+    const { relationshipId } = await createOrGetRelationship([
+      receiverUsername,
+    ]);
     dispatch(update());
-    setUpdateLocally((prev) => [...prev, 1]);
-    setShowJoinModal("");
+    navigate(`/chat?dm=${relationshipId}`);
   }
 
-  async function handleLeave(channelName: string) {
-    const result = await leaveChannel(channelName);
-    console.log(result);
-    dispatch(update());
-    setUpdateLocally((prev) => [...prev, 1]);
-    setShowJoinModal("");
-  }
-  async function handleDelete(channelName: string) {
-    const result = await deleteChannel(channelName);
-    console.log(result);
-    dispatch(update());
-    setUpdateLocally((prev) => [...prev, 1]);
-    setShowJoinModal("");
-  }
-
-  const selectedChannel = showJoinModal
-    ? channelsInDb.find((chan) => chan.name === showJoinModal)
+  const selectedUser = showUserModal
+    ? usersInDb.find((user) => user.username === showUserModal)
     : null;
 
   return (
     <Wrapper>
-      {showJoinModal && (
+      {showUserModal && (
         <ModalWindow
-          closeHandler={resetJoinModal}
-          heading={`#${showJoinModal}`}
+          closeHandler={resetUserModal}
+          heading={`@${showUserModal}`}
         >
           <Table>
             <THead>
               <Tr>
-                <Th style={{ paddingRight: size(20) }}>FOUNDER</Th>
-                <Th>MEMBERS</Th>
+                <Th>MEMBER SINCE</Th>
               </Tr>
             </THead>
             <tbody>
               <Tr>
-                <Td>{selectedChannel?.founder}</Td>
-                <Td>{selectedChannel?.numMembers}</Td>
+                <Td>
+                  {selectedUser?.memberSince
+                    .toLocaleString()
+                    .split(" ")
+                    .slice(0, 4)
+                    .join(" ")}
+                </Td>
               </Tr>
             </tbody>
           </Table>
-          {selectedChannel?.founder === username ? (
+          {selectedUser?.username === username ? (
             <Button
-              onClick={() => handleDelete(selectedChannel?.name || "")}
-              $danger
+              onClick={() => navigate("dashboard")}
+              title="Go to Dashboard"
             >
-              DELETE CHANNEL
-            </Button>
-          ) : userChannelsInDb.indexOf(selectedChannel?.name as string) ===
-            -1 ? (
-            <Button
-              onClick={() => handleJoin(selectedChannel?.name || "")}
-              $primary
-            >
-              JOIN CHANNEL
+              GO TO DASHBOARD
             </Button>
           ) : (
-            <Button onClick={() => handleLeave(selectedChannel?.name || "")}>
-              LEAVE CHANNEL
+            <Button
+              $primary
+              onClick={() => handleDm(selectedUser?.username || "")}
+              title="Send message"
+            >
+              SEND MESSAGE
             </Button>
           )}
         </ModalWindow>
       )}
-      <UtilityBtn title="Back" onClick={() => setMode("")}>
+      <UtilityBtn title="Go back" onClick={() => setMode("")}>
         <SvgIcon imgSrc={"back-arrow.svg"} />
       </UtilityBtn>
       <TextLabel>
-        SEARCH CHANNELS
+        SEARCH USERS
         <SearchInput
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearchInput(e.target.value)
@@ -162,15 +146,14 @@ export default function FindUserlMode({ setMode }: TFindUserProps) {
       <Table>
         <THead>
           <Tr>
-            <Th style={{ paddingRight: size(20) }}>CHANNEL NAME</Th>
-            <Th>MEMBERS</Th>
+            <Th>USERNAME</Th>
           </Tr>
         </THead>
         <tbody>
           {searchItems.length > 0 ? (
             searchItems
           ) : (
-            <ErrorText>Found no channels</ErrorText>
+            <ErrorText>Found no users</ErrorText>
           )}
         </tbody>
       </Table>

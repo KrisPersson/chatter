@@ -73,6 +73,7 @@ export default function ChatItem({ msg }: { msg: TMessage }) {
     .split("")
     .map((char) => (char === "/" ? "-" : char))
     .join("");
+  console.log(msg.senderUsername);
   return (
     <Wrapper>
       <ProfileCirclePic />

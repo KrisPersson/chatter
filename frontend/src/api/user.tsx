@@ -23,3 +23,20 @@ export async function getUserInfo() {
     console.log(error);
   }
 }
+
+export async function getAllUsers() {
+  try {
+    const response = await fetch(BASE_URL + "/user/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: ("Bearer " +
+          localStorage.getItem("userToken")) as string,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

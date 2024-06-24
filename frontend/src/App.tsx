@@ -6,6 +6,7 @@ import AuthenticatedLayout from "./components/AuthLayout/AuthLayout";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Channels from "./views/Channels/Channels";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
+import Users from "./views/Users/Users";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -37,6 +38,7 @@ function App() {
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/channels" element={<Channels />} />
+              <Route path="/users" element={<Users />} />
               <Route path="/chat" element={<ChatWindow />} />
             </Route>
           )}

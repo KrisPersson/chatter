@@ -4,6 +4,7 @@ export async function postMessageToChannelDb(msg: TMessage) {
   try {
     const body = {
       textBody: msg.textBody,
+      senderUsername: msg.senderUsername,
       sentAt: msg.sentAt,
       channel: msg.channel,
     };

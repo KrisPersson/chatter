@@ -7,6 +7,7 @@ import { auth } from "../middleware/auth.middleware.js";
 import {
   createRelationshipCtrl,
   getRelationshipCtrl,
+  createOrGetRelationshipCtrl,
 } from "../controllers/relationship/relationship.controller.js";
 
 // CREATE
@@ -18,5 +19,13 @@ router.post(
 );
 // GET
 router.get("/", auth, getRelationshipCtrl);
+
+// CREATE
+router.put(
+  "/",
+  validateBody(relationshipCreateUserInputSchema),
+  auth,
+  createOrGetRelationshipCtrl,
+);
 
 export default router;

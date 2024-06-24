@@ -11,7 +11,7 @@ export const Wrapper = styled.dialog`
   grid-template-rows: ${size(4.5)} auto;
   border: none;
   border: 2px solid var(--c-background-lighter);
-  z-index: 2;
+  z-index: 10;
 
   ${UtilityBtn} {
     grid-row: 1 / 2;

@@ -1,4 +1,5 @@
 import { ChannelDb } from "../../database/channel.db.js";
+import { RelationshipDb } from "../../database/relationship.db.js";
 import { UserDb } from "../../database/user.db.js";
 import { removeChannelFromAllMemberUsers } from "./utils.js";
 import {
@@ -37,5 +38,25 @@ export async function postChannelMessageToDb({
   };
   channelInDb.messages.push(newMessage);
   await channelInDb.save();
+  return;
+}
+
+export async function postDirectMessageToDb({
+  senderUsername,
+  sentAt,
+  textBody,
+  channel,
+}: TPostChannelMessageToDbProps) {
+  const relationshipInDb = await RelationshipDb.findOne({ id: channel });
+  if (!relationshipInDb)
+    throw new Error("Could not find relationship with this id in database.");
+  const newMessage: TChannelMessage = {
+    id: uuidv4(),
+    senderUsername,
+    textBody,
+    sentAt: new Date(sentAt),
+  };
+  relationshipInDb.messages.push(newMessage);
+  await relationshipInDb.save();
   return;
 }

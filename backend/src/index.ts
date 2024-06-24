@@ -4,7 +4,10 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { config } from "dotenv";
 import cors from "cors";
-import { postChannelMessageToDb } from "./model/message/channel.model.js";
+import {
+  postChannelMessageToDb,
+  postDirectMessageToDb,
+} from "./model/message/message.model.js";
 config();
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -50,7 +53,11 @@ io.on("connection", (socket) => {
         textBody: msg.textBody,
         channel: msg.channel,
       };
-      await postChannelMessageToDb(message);
+      if (msg.channelType === "channel") {
+        await postChannelMessageToDb(message);
+      } else if (msg.channelType === "dm") {
+        await postDirectMessageToDb(message);
+      }
       io.to(msg.channel).emit("chat-message", msg);
     } catch (error) {
       console.log(

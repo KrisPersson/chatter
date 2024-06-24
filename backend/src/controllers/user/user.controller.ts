@@ -111,7 +111,6 @@ export async function getUserInfoCtrl(request: Request, response: Response) {
   try {
     const username = extractFromJwtPayload(token || "", "username");
     const userInfoInDb = await getUserChannelsAndRelationships(username);
-    console.log(userInfoInDb);
 
     response.json({
       success: true,
@@ -140,6 +139,7 @@ export async function getAllUsersCtrl(request: Request, response: Response) {
             ),
           };
         }),
+        memberSince: user.createdAt,
       };
     });
 
