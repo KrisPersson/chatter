@@ -6,17 +6,19 @@ import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
 import { TBasicRelationship } from "../../types";
 import { useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 const AuthenticatedLayout = () => {
+  const navigate = useNavigate();
   const [userChannels, setUserChannels] = useState<string[]>([]);
   const [userRelationships, setUserRelationships] = useState<
     TBasicRelationship[]
   >([]);
   const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
+
   async function handleUpdateChanAndRel() {
     const userInfoFromDb = await getUserInfo();
-    if (!userInfoFromDb.success)
-      return console.log("Could not fetch", userInfoFromDb.message);
+    if (!userInfoFromDb.success) return navigate("/login");
     setUserChannels([...userInfoFromDb.channels]);
     setUserRelationships([...userInfoFromDb.relationships]);
   }

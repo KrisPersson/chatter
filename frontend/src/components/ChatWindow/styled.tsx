@@ -3,7 +3,9 @@ import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
 import { ChatMemberColumnWrapper } from "./ChatMembersColumn";
 
-export const Wrapper = styled.article`
+export const Wrapper = styled.article<{
+  $isDm?: boolean;
+}>`
   min-width: 100%;
   min-height: 100%;
   max-height: calc(100vh - 228px);
@@ -11,7 +13,7 @@ export const Wrapper = styled.article`
 
   display: grid;
   grid-template-rows: 50px 1fr 32px;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: ${(props) => (props.$isDm ? "1fr" : "1fr 300px")};
 
   ${ChatMemberColumnWrapper} {
     grid-row: 1/ -2;
@@ -54,11 +56,13 @@ export const ChatFeed = styled.ul`
   padding-left: 0;
   margin: 0;
   padding-block: ${size(1.5)};
+  padding-right: var(--main-gutter);
   list-style: none;
   max-height: calc(100vh - 228px);
-  overflow-y: auto;
+  max-width: calc(100% - var(--main-gutter));
   grid-row: 2 / span 1;
   grid-column: 1 / span 1;
+  overflow-y: auto;
 
   & > * {
     margin-block: ${size(1.5)};
@@ -73,11 +77,15 @@ export const Form = styled.form`
 `;
 
 export const TextInput = styled.input`
-  min-width: 100%;
+  width: 100%;
+  max-width: calc(100% - 70px);
+  overflow: auto;
   height: 100%;
   min-height: 56px;
   outline: none;
   border: none;
+  word-wrap: break-word;
+  word-break: break-all;
   background: var(--c-background-darker);
   color: var(--c-lighter);
   font-size: 1rem;

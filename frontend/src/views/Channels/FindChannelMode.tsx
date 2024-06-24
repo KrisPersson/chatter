@@ -170,7 +170,11 @@ export default function FindChannelMode({ setMode }: TFindChannelProps) {
           {searchItems.length > 0 ? (
             searchItems
           ) : (
-            <ErrorText>Found no channels</ErrorText>
+            <Tr>
+              <Td>
+                <ErrorText>Found no channels</ErrorText>
+              </Td>
+            </Tr>
           )}
         </tbody>
       </Table>

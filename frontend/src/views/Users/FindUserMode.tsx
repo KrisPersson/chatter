@@ -39,7 +39,7 @@ type TFindUserProps = {
   setMode: (mode: TModes) => void;
 };
 
-export default function FindUserlMode({ setMode }: TFindUserProps) {
+export default function FindUserMode({ setMode }: TFindUserProps) {
   const [searchInput, setSearchInput] = useState("");
   const [usersInDb, setUsersInDb] = useState<TUser[]>([]);
   const [showUserModal, setShowUserModal] = useState("");
@@ -152,7 +152,11 @@ export default function FindUserlMode({ setMode }: TFindUserProps) {
           {searchItems.length > 0 ? (
             searchItems
           ) : (
-            <ErrorText>Found no users</ErrorText>
+            <Tr>
+              <Td>
+                <ErrorText>Found no users</ErrorText>
+              </Td>
+            </Tr>
           )}
         </tbody>
       </Table>

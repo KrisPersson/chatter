@@ -93,7 +93,7 @@ export default function ChatWindow() {
     console.log("Client connected!");
   });
   return (
-    <Wrapper id="chat-window">
+    <Wrapper id="chat-window" $isDm={channelName.key === "dm"}>
       <Header $isDm={channelName.key === "dm"}>
         <Heading>
           {channelName.key === "dm" ? "" : "#"}
