@@ -7,9 +7,10 @@ import { TOnlineStatusProp } from "../../types/index";
 
 type THeaderProps = {
   onlineStatus: TOnlineStatusProp;
+  memberSince: null | string;
 };
 
-export default function Header({ onlineStatus }: THeaderProps) {
+export default function Header({ onlineStatus, memberSince }: THeaderProps) {
   const username = localStorage.getItem("username") || "";
   const [showUserModal, setShowUserModal] = useState(false);
 
@@ -25,7 +26,11 @@ export default function Header({ onlineStatus }: THeaderProps) {
         />
       </ContentWrapper>
       {showUserModal && (
-        <UserModal onlineStatus={onlineStatus} username={username} />
+        <UserModal
+          onlineStatus={onlineStatus}
+          username={username}
+          memberSince={memberSince}
+        />
       )}
     </HeaderWrapper>
   );

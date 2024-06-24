@@ -56,6 +56,7 @@ export async function getUserChannelsAndRelationships(username: string) {
     relationships: user?.relationships,
     channels: user?.channels,
     onlineStatus: user?.onlineStatus,
+    memberSince: user?.createdAt,
   };
 }
 export type TOnlineStatusProp = "online" | "busy" | "away" | "offline";

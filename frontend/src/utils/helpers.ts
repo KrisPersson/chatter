@@ -38,3 +38,7 @@ export function removeSelfFromListOfUsernames(
 ) {
   return usernames.filter((username) => username !== self);
 }
+
+export function parseDate(dateString: string) {
+  return dateString.split(" ").slice(0, 4).join(" ");
+}

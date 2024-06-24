@@ -129,7 +129,7 @@ export async function getUserInfoCtrl(request: Request, response: Response) {
   try {
     const token = request.headers.authorization?.replace("Bearer ", "");
     const username = extractFromJwtPayload(token || "", "username");
-    const { channels, relationships, onlineStatus } =
+    const { channels, relationships, onlineStatus, memberSince } =
       await getUserChannelsAndRelationships(username);
 
     response.json({
@@ -139,6 +139,7 @@ export async function getUserInfoCtrl(request: Request, response: Response) {
         return { id: rel.id, usernames: rel.usernames };
       }),
       onlineStatus,
+      memberSince,
     });
   } catch (error) {
     const err = error as Error;

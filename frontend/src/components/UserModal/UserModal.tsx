@@ -16,7 +16,7 @@ import { useState } from "react";
 import { List } from "../../styled-components/List";
 import { OnlineStatusCircle } from "../../styled-components/OnlineStatusCircle";
 import { TOnlineStatusProp } from "../../types";
-import { capitalize } from "../../utils/helpers";
+import { capitalize, parseDate } from "../../utils/helpers";
 import { updateOnlineStatus } from "../../api/user";
 import { useAppDispatch } from "../../app/hooks";
 import { update } from "../../features/reFetchControl/reFetch-slice";
@@ -24,6 +24,7 @@ import { update } from "../../features/reFetchControl/reFetch-slice";
 type TUserModalProps = {
   username: string;
   onlineStatus: TOnlineStatusProp;
+  memberSince: null | string;
 };
 
 const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
@@ -33,7 +34,11 @@ const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
   "busy",
 ];
 
-export default function UserModal({ username, onlineStatus }: TUserModalProps) {
+export default function UserModal({
+  username,
+  onlineStatus,
+  memberSince,
+}: TUserModalProps) {
   const [showStatusList, setShowStatusList] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -84,7 +89,9 @@ export default function UserModal({ username, onlineStatus }: TUserModalProps) {
           ) : (
             <>
               <MemberSinceKey>MEMBER SINCE</MemberSinceKey>
-              <MemberSinceValue>janiuaru</MemberSinceValue>
+              <MemberSinceValue>
+                {memberSince && parseDate(memberSince)}
+              </MemberSinceValue>
             </>
           )}
         </ContentWrapper>
