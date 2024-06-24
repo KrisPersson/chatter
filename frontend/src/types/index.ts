@@ -22,6 +22,7 @@ export type TChannelMember = {
   isModerator?: boolean;
   isOwner?: boolean;
 };
+export type TOnlineStatusProp = "online" | "busy" | "away" | "offline";
 
 export type TUser = {
   id?: string;
@@ -32,6 +33,5 @@ export type TUser = {
   };
   channels?: string[];
   memberSince: string;
+  onlineStatus?: TOnlineStatusProp;
 };
-
-export type TOnlineStatusProp = "online" | "busy" | "away" | "offline";

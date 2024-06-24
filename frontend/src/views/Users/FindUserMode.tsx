@@ -50,8 +50,8 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
   const username = localStorage.getItem("username") || "";
 
   async function fetchUsers() {
-    const { users } = await getAllUsers();
-
+    const request = await getAllUsers();
+    const users: TUser[] = request.users;
     setUsersInDb([...users.filter((user) => user.username !== username)]);
   }
 
@@ -66,7 +66,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
     return (
       <Tr key={item.username} onClick={() => setShowUserModal(item.username)}>
         <Td>
-          <UserChatItem usernames={[item.username]} />
+          <UserChatItem users={[item.username]} />
         </Td>
       </Tr>
     );

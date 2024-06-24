@@ -45,6 +45,7 @@ export default function LoginPage() {
     }
     localStorage.setItem("userToken", loginAttempt.token);
     localStorage.setItem("username", loginAttempt.username);
+    localStorage.setItem("memberSince", loginAttempt.memberSince);
 
     navigate("/dashboard");
   }

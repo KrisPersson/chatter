@@ -15,7 +15,6 @@ const AuthenticatedLayout = () => {
     TBasicRelationship[]
   >([]);
   const [userOnlineStatus, setUserOnlineStatus] = useState("offline");
-  const [memberSince, setMemberSince] = useState<null | string>(null);
   const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
 
   async function handleUpdateChanAndRel() {
@@ -24,7 +23,6 @@ const AuthenticatedLayout = () => {
     setUserChannels([...userInfoFromDb.channels]);
     setUserRelationships([...userInfoFromDb.relationships]);
     setUserOnlineStatus(userInfoFromDb.onlineStatus);
-    setMemberSince(userInfoFromDb.memberSince);
   }
   useEffect(() => {
     handleUpdateChanAndRel();
@@ -32,10 +30,7 @@ const AuthenticatedLayout = () => {
 
   return (
     <Container>
-      <Header
-        onlineStatus={userOnlineStatus as TOnlineStatusProp}
-        memberSince={memberSince}
-      />
+      <Header onlineStatus={userOnlineStatus as TOnlineStatusProp} />
       <Sidebar channels={userChannels} relationships={userRelationships} />
       <Main>
         <Outlet />

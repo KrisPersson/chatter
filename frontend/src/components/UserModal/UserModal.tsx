@@ -8,6 +8,8 @@ import {
   ContentWrapper,
   Upper,
   Username,
+  SecondRow,
+  LogOutButton,
 } from "./styled";
 import { UtilityBtn } from "../../styled-components/Button";
 import SvgIcon from "../SvgIcon/SvgIcon";
@@ -20,11 +22,11 @@ import { capitalize, parseDate } from "../../utils/helpers";
 import { updateOnlineStatus } from "../../api/user";
 import { useAppDispatch } from "../../app/hooks";
 import { update } from "../../features/reFetchControl/reFetch-slice";
+import { useNavigate } from "react-router-dom";
 
 type TUserModalProps = {
   username: string;
   onlineStatus: TOnlineStatusProp;
-  memberSince: null | string;
 };
 
 const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
@@ -34,14 +36,11 @@ const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
   "busy",
 ];
 
-export default function UserModal({
-  username,
-  onlineStatus,
-  memberSince,
-}: TUserModalProps) {
+export default function UserModal({ username, onlineStatus }: TUserModalProps) {
+  const navigate = useNavigate();
   const [showStatusList, setShowStatusList] = useState(false);
   const dispatch = useAppDispatch();
-
+  const memberSince = localStorage.getItem("memberSince");
   function handleClickSettings() {
     console.log("Clicked settings");
   }
@@ -50,6 +49,13 @@ export default function UserModal({
     setShowStatusList(false);
     dispatch(update());
   }
+  function handleLogout() {
+    localStorage.setItem("username", "");
+    localStorage.setItem("userToken", "");
+    localStorage.setItem("memberSince", "");
+    navigate("/login");
+  }
+
   return (
     <Wrapper>
       <Upper>
@@ -58,7 +64,10 @@ export default function UserModal({
           <SvgIcon imgSrc={"settings.svg"} alt="Settings icon" />
         </UtilityBtn>
       </Upper>
-      <Username>@{username}</Username>
+      <SecondRow>
+        <Username>@{username}</Username>
+        <LogOutButton onClick={handleLogout}>Log out</LogOutButton>
+      </SecondRow>
       <Inner>
         <OnlineStatusBtn
           title="Change online-status"
@@ -75,7 +84,7 @@ export default function UserModal({
               {ONLINE_STATUS_ALTERNATIVES.filter(
                 (alt) => alt !== onlineStatus
               ).map((alternative) => (
-                <li>
+                <li key={alternative}>
                   <OnlineStatusBtn
                     title={capitalize(alternative)}
                     onClick={() => handleClickUpdateStatus(alternative)}

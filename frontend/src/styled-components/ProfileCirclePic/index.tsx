@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { size } from "../../utils/helpers";
+import { OnlineStatusCircle } from "../OnlineStatusCircle";
 
 export const ProfileCirclePic = styled.div<{ $big?: boolean }>`
   background: var(--c-primary-default);
@@ -31,5 +32,16 @@ export const ProfileCirclePic = styled.div<{ $big?: boolean }>`
     height: ${size(3.25)};
     background: var(--c-lighter);
     z-index: 5;
+  }
+`;
+
+export const ProfileCircleWrapper = styled.div`
+  position: relative;
+  ${OnlineStatusCircle} {
+    border: 2px solid var(--c-black);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 6;
   }
 `;

@@ -45,6 +45,7 @@ export async function loginCtrl(request: Request, response: Response) {
       username: user.username,
       message: "Successfully logged in.",
       token,
+      memberSince: user.createdAt,
     });
   } catch (error) {
     const err = error as Error;

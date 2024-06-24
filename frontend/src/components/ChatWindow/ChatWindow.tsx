@@ -99,7 +99,7 @@ export default function ChatWindow() {
           {channelName.key === "dm" ? "" : "#"}
           {channelName.key === "dm" && members.length > 0
             ? members.map((member) => (
-                <UserChatItem usernames={[member]} key={"user " + member} />
+                <UserChatItem users={[member]} key={"user " + member} />
               ))
             : channelName.value}
         </Heading>

@@ -18,6 +18,7 @@ export const Wrapper = styled.aside`
   border: none;
   border: 2px solid var(--c-background-lighter);
   z-index: 10;
+  box-shadow: 2px 2px 20px rgba(10, 10, 10, 0.15);
 
   ${UtilityBtn} {
     grid-row: 1 / 2;
@@ -31,6 +32,13 @@ export const Inner = styled.div`
   border-radius: ${size(2)} ${size(2)} 0 0;
   grid-row: 3 / -1;
   padding: ${size(2)};
+  min-height: 196px;
+`;
+export const SecondRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-row: 2 / span 1;
 `;
 
 export const Heading = styled(_headingBase)`
@@ -74,9 +82,20 @@ export const ContentWrapper = styled.div`
   }
 `;
 
+export const LogOutButton = styled(Heading).attrs(() => ({ as: "button" }))`
+  font-size: 1rem;
+  color: var(--c-primary-default);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
 export const Username = styled(Heading).attrs(() => ({ as: "div" }))`
   font-size: 1.25rem;
-  grid-row: 2 / span 1;
 `;
 export const MemberSinceKey = styled(Heading).attrs(() => ({ as: "div" }))`
   font-size: 0.75rem;

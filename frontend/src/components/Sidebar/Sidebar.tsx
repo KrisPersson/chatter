@@ -37,7 +37,7 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
     return (
       <UserChatItem
         key={rel.id}
-        usernames={rel.usernames}
+        users={rel.usernames}
         clickUserHandler={() =>
           clickUserHandler(rel.usernames.filter((user) => user !== username))
         }
@@ -66,7 +66,7 @@ export default function Sidebar({ channels, relationships }: TSidebarProps) {
       </Section>
       <UserFooterContainer>
         <UserChatItem
-          usernames={[localStorage.getItem("username") || ""]}
+          users={[localStorage.getItem("username") || ""]}
           self={true}
         />
       </UserFooterContainer>
