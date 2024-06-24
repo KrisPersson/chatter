@@ -12,18 +12,19 @@ export const TopRowWrapper = styled.div`
 export const ChatMessage = styled.p`
   color: var(--c-main);
   font-size: 1rem;
-  line-height: 1;
-
+  line-height: 1.3;
   margin: 0;
+  word-break: break-all;
+  max-width: 60ch;
 `;
 
 export const Wrapper = styled.li`
   display: grid;
-  min-width: 100%;
+  width: 100%;
+
   grid-template-rows: 20px 20px auto;
   grid-template-columns: 40px 1fr;
   column-gap: ${size(1)};
-  row-gap: ${size(0.25)};
 
   ${TopRowWrapper} {
     grid-column: 2 / -1;
@@ -69,13 +70,17 @@ export const Circle = styled.div`
 export default function ChatItem({ msg }: { msg: TMessage }) {
   const date = new Date(msg.sentAt || "");
   const sent = date ? date.toLocaleString() : "-";
+  const parsedDate = sent
+    .split("")
+    .map((char) => (char === "/" ? "-" : char))
+    .join("");
   return (
     <Wrapper>
       <ProfileCirclePic />
       <TopRowWrapper>
         <ChatUserName>@{msg.senderUsername}</ChatUserName>
         <Circle />
-        <DateText>{sent}</DateText>
+        <DateText>{parsedDate}</DateText>
       </TopRowWrapper>
       <ChatMessage>{msg.textBody}</ChatMessage>
     </Wrapper>

@@ -69,6 +69,15 @@ export async function getAllChannels() {
   return channels;
 }
 
+export async function getChannel(name: string, username: string) {
+  const channel = await ChannelDb.findOne({ name });
+  if (!channel) throw new Error("Could not find channel in database.");
+  const members = channel.members.map((member) => member.username);
+  if (!members.includes(username))
+    throw new Error("User is not a member of this channel.");
+  return channel;
+}
+
 export async function deleteChannel(founderUsername: string, name: string) {
   const channelInDb = await ChannelDb.findOne({ founderUsername, name });
   if (!channelInDb) {
@@ -84,5 +93,29 @@ export async function deleteChannel(founderUsername: string, name: string) {
     usernames,
   );
 
+  return true;
+}
+
+export async function leaveChannel(channelName: string, username: string) {
+  const userInDb = await UserDb.findOne({ username });
+  if (!userInDb) {
+    throw new Error("User could not be found in database.");
+  }
+  const channelInDb = await ChannelDb.findOne({ name: channelName });
+  if (!channelInDb) {
+    throw new Error("Channel could not be found in database.");
+  }
+  const members = channelInDb.members.map((member) => member.username);
+  if (!members.includes(username)) {
+    throw new Error("User is not a member of this channel.");
+  }
+  if (channelInDb.founderUsername === username) {
+    throw new Error("User is founder of channel and can not leave.");
+  }
+
+  channelInDb.members.splice(members.indexOf(username), 1);
+  userInDb.channels.splice(userInDb.channels.indexOf(channelName), 1);
+  await channelInDb.save();
+  await userInDb.save();
   return true;
 }

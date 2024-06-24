@@ -31,3 +31,14 @@ export function capitalize(string: string) {
     })
     .join("");
 }
+
+export function removeSelfFromListOfUsernames(
+  usernames: string[],
+  self: string
+) {
+  return usernames.filter((username) => username !== self);
+}
+
+export function parseDate(dateString: string) {
+  return dateString.split(" ").slice(0, 4).join(" ");
+}

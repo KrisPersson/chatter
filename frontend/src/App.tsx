@@ -6,13 +6,19 @@ import AuthenticatedLayout from "./components/AuthLayout/AuthLayout";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Channels from "./views/Channels/Channels";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Users from "./views/Users/Users";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { verifyTokenApi } from "./api/auth";
+const auth = await verifyTokenApi();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!auth);
 
   async function checkToken() {
     const auth = await verifyTokenApi();
@@ -33,12 +39,15 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/channels" element={<Channels />} />
-              <Route path="/chat" element={<ChatWindow chatName="#main" />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/chat" element={<ChatWindow />} />
             </Route>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
           )}
         </Routes>
       </>

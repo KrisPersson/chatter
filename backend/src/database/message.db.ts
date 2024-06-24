@@ -5,7 +5,7 @@ export const ChannelMessageSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  senderId: {
+  senderUsername: {
     required: true,
     type: String,
   },

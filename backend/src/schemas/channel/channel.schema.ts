@@ -11,7 +11,7 @@ export const userInputCreateChannelSchema = z.object({
   name: z.string().min(3, "Channel name must be at least 3 characters long."),
 });
 
-export const userInputJoinChannelSchema = z.object({
+export const userInputJoinLeaveChannelSchema = z.object({
   channelName: z.string(),
 });
 

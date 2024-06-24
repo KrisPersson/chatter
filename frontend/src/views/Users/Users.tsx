@@ -3,11 +3,8 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
 import { Button } from "../../styled-components/Button";
-import FindChannelMode from "./FindChannelMode";
-import CreateChannelMode from "./CreateChannelMode";
+import FindUserMode from "./FindUserMode";
 import { capitalize } from "../../utils/helpers";
-
-export type TModes = "find" | "create" | "";
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -17,9 +14,13 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export default function Channels() {
+export type TModes = "find" | "";
+
+export default function Users() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<TModes>("");
+
+  const username = localStorage.getItem("username") || "";
 
   function clickHandler(mode: TModes) {
     setMode(mode);
@@ -28,20 +29,17 @@ export default function Channels() {
   return (
     <Wrapper>
       <Header>
-        <Heading>Channels {mode && ` / ${capitalize(mode)}`}</Heading>
+        <Heading>Users{mode && ` / ${capitalize(mode)}`}</Heading>
       </Header>
       <ContentWrapper>
         {!mode ? (
           <ButtonContainer>
             <Button $primary onClick={() => clickHandler("find")}>
-              Find and join
+              Find Users
             </Button>
-            <Button onClick={() => clickHandler("create")}>Create</Button>
           </ButtonContainer>
         ) : mode === "find" ? (
-          <FindChannelMode setMode={clickHandler} />
-        ) : mode === "create" ? (
-          <CreateChannelMode setMode={clickHandler} />
+          <FindUserMode setMode={clickHandler} />
         ) : (
           ""
         )}

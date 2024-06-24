@@ -2,40 +2,35 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 import { Container, Main } from "./styled";
-import { useNavigate } from "react-router-dom";
-import { verifyTokenApi } from "../../api/auth";
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
-import { TBasicRelationship } from "../../types";
+import { TBasicRelationship, TOnlineStatusProp } from "../../types";
 import { useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 const AuthenticatedLayout = () => {
   const navigate = useNavigate();
-  const auth = verifyTokenApi();
-  if (!auth) {
-    localStorage.setItem("userToken", "");
-    navigate("/login");
-  }
   const [userChannels, setUserChannels] = useState<string[]>([]);
   const [userRelationships, setUserRelationships] = useState<
     TBasicRelationship[]
   >([]);
+  const [userOnlineStatus, setUserOnlineStatus] = useState("offline");
   const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
+
   async function handleUpdateChanAndRel() {
     const userInfoFromDb = await getUserInfo();
-    if (!userInfoFromDb.success)
-      return console.log("Could not fetch", userInfoFromDb.message);
+    if (!userInfoFromDb.success) return navigate("/login");
     setUserChannels([...userInfoFromDb.channels]);
     setUserRelationships([...userInfoFromDb.relationships]);
+    setUserOnlineStatus(userInfoFromDb.onlineStatus);
   }
-
   useEffect(() => {
     handleUpdateChanAndRel();
   }, [refetchState]);
 
   return (
     <Container>
-      <Header />
+      <Header onlineStatus={userOnlineStatus as TOnlineStatusProp} />
       <Sidebar channels={userChannels} relationships={userRelationships} />
       <Main>
         <Outlet />

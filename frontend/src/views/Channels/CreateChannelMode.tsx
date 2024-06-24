@@ -8,7 +8,6 @@ import { size } from "../../utils/helpers";
 import { Button, UtilityBtn } from "../../styled-components/Button";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
 import { TModes } from "./Channels";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { update } from "../../features/reFetchControl/reFetch-slice";
 
@@ -53,9 +52,7 @@ type TCreateChannelProps = {
 export default function CreateChannelMode({ setMode }: TCreateChannelProps) {
   const [input, setInput] = useState("");
   const [channelNamesInDb, setChannelNamesInDb] = useState<string[]>([]);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const username = localStorage.getItem("username") || "";
 
   async function fetchChannels() {
     const { channels } = await getAllChannels();
@@ -69,8 +66,7 @@ export default function CreateChannelMode({ setMode }: TCreateChannelProps) {
   async function handleCreate(channelName: string) {
     if (channelName.length < 3) return;
     if (channelNamesInDb.includes(input)) return;
-    const result = await createChannel(channelName);
-    console.log(result);
+    await createChannel(channelName);
     dispatch(update());
     setMode("");
   }

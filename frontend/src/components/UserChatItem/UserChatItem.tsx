@@ -2,25 +2,29 @@ import { Wrapper, Name } from "./styled";
 import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
 
 type TUserChatItemProps = {
-  usernames: string[];
+  users: string[];
   self?: boolean;
+  clickUserHandler?: () => void;
+  withStatusCircle?: boolean;
 };
 
-export default function UserChatItem({ usernames, self }: TUserChatItemProps) {
+export default function UserChatItem({
+  users,
+  self,
+  clickUserHandler,
+}: TUserChatItemProps) {
   const username = localStorage.getItem("username") || "";
-  const filteredUsernames = usernames.filter(
-    (user) => user !== username || self
-  );
+  const filteredUsers = users.filter((user) => user !== username || self);
 
-  const ProfilePics = filteredUsernames.map((username, i) => (
-    <ProfileCirclePic key={"circlepic-" + i + username} />
-  ));
-  const Usernames = filteredUsernames.map((username, i) => (
-    <Name key={"name-" + i + username}>@{username}</Name>
+  const ProfilePics = filteredUsers.map((user, i) => {
+    return <ProfileCirclePic title={user} key={user + i} />;
+  });
+  const Usernames = filteredUsers.map((user, i) => (
+    <Name key={"name-" + i + user}>@{user}</Name>
   ));
 
   return (
-    <Wrapper>
+    <Wrapper onClick={clickUserHandler}>
       {ProfilePics.length > 0 && ProfilePics}
       {Usernames.length > 0 && Usernames}
     </Wrapper>

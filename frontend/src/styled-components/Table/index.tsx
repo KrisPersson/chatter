@@ -14,9 +14,14 @@ export const Th = styled(_headingBase).attrs({ as: "th" })`
   color: var(--c-darker);
   font-weight: 400;
   font-size: 0.75rem;
+  text-align: left;
 `;
 export const Td = styled(_headingBase).attrs({ as: "td" })`
   color: var(--c-main);
   font-weight: 400;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;

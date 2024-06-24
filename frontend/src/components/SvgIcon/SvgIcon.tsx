@@ -8,7 +8,13 @@ const Img = styled.img`
   display: block;
 `;
 
-export default function SvgIcon({ imgSrc }: { imgSrc: string }) {
+export default function SvgIcon({
+  imgSrc,
+  alt,
+}: {
+  imgSrc: string;
+  alt?: string;
+}) {
   const url = `/icons/${imgSrc}`;
-  return <Img src={url} />;
+  return <Img src={url} alt={alt} />;
 }

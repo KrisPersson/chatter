@@ -31,6 +31,13 @@ export const loginInputSchema = baseUserSchema.extend({
     ),
 });
 
+export const updateOnlineStatusSchema = z.object({
+  status: z
+    .string()
+    .min(4, "Status must be at least 4 chars long")
+    .max(7, "Status must be at most 7 chars long"),
+});
+
 const userDbSchema = baseUserSchema.extend({
   id: z.string().uuid(),
   password: z.string(), // Hashed
