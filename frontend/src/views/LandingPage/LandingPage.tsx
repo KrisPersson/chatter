@@ -10,9 +10,14 @@ import {
   Main,
   Wrapper,
 } from "./styled";
+import { verifyTokenApi } from "../../api/auth";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const auth = verifyTokenApi();
+  if (!auth) {
+    navigate("/dashboard");
+  }
 
   function handleClick(path: string) {
     navigate(`/${path}`);

@@ -52,17 +52,17 @@ export async function loginCtrl(request: Request, response: Response) {
 }
 
 export async function verifyTokenCtrl(request: Request, response: Response) {
-  const { token } = request.body;
   try {
+    const { token } = request.body;
     const data = jwt.verify(token as string, process.env.JWT_SECRET as string);
-    if (!data) throw new Error("Token not valid");
+
     response.json({
       success: true,
       data,
     });
   } catch (error) {
     const err = error as Error;
-    response.status(401).json({ success: false, message: err.message });
+    response.status(401).json({ success: false, message: "Invalid token" });
   }
 }
 

@@ -2,20 +2,12 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 import { Container, Main } from "./styled";
-import { useNavigate } from "react-router-dom";
-import { verifyTokenApi } from "../../api/auth";
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../api/user";
 import { TBasicRelationship } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 
 const AuthenticatedLayout = () => {
-  const navigate = useNavigate();
-  const auth = verifyTokenApi();
-  if (!auth) {
-    localStorage.setItem("userToken", "");
-    navigate("/login");
-  }
   const [userChannels, setUserChannels] = useState<string[]>([]);
   const [userRelationships, setUserRelationships] = useState<
     TBasicRelationship[]

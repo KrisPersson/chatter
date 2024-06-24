@@ -7,8 +7,12 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Channels from "./views/Channels/Channels";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
 import Users from "./views/Users/Users";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { verifyTokenApi } from "./api/auth";
 
@@ -34,13 +38,15 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/channels" element={<Channels />} />
               <Route path="/users" element={<Users />} />
               <Route path="/chat" element={<ChatWindow />} />
             </Route>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
           )}
         </Routes>
       </>
