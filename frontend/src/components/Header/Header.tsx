@@ -30,7 +30,11 @@ export default function Header({ onlineStatus }: THeaderProps) {
         </ProfileCircleWrapper>
       </ContentWrapper>
       {showUserModal && (
-        <UserModal onlineStatus={onlineStatus} username={username} />
+        <UserModal
+          onlineStatus={onlineStatus}
+          username={username}
+          setShowUserModal={setShowUserModal}
+        />
       )}
     </HeaderWrapper>
   );

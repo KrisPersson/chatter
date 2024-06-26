@@ -1,4 +1,5 @@
 import { Button } from "../../styled-components/Button";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ContentWrapper,
@@ -14,10 +15,16 @@ import { verifyTokenApi } from "../../api/auth";
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const auth = verifyTokenApi();
-  if (!auth) {
-    navigate("/dashboard");
+  async function checkAuth() {
+    const auth = await verifyTokenApi();
+    if (auth.success) {
+      navigate("/dashboard");
+    }
   }
+
+  useEffect(() => {
+    checkAuth();
+  });
 
   function handleClick(path: string) {
     navigate(`/${path}`);
