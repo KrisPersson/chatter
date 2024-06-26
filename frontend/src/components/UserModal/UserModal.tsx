@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 type TUserModalProps = {
   username: string;
   onlineStatus: TOnlineStatusProp;
+  setShowUserModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
@@ -36,13 +37,17 @@ const ONLINE_STATUS_ALTERNATIVES: TOnlineStatusProp[] = [
   "busy",
 ];
 
-export default function UserModal({ username, onlineStatus }: TUserModalProps) {
+export default function UserModal({
+  username,
+  onlineStatus,
+  setShowUserModal,
+}: TUserModalProps) {
   const navigate = useNavigate();
   const [showStatusList, setShowStatusList] = useState(false);
   const dispatch = useAppDispatch();
   const memberSince = localStorage.getItem("memberSince");
-  function handleClickSettings() {
-    console.log("Clicked settings");
+  function handleClickClose() {
+    setShowUserModal(false);
   }
   async function handleClickUpdateStatus(status: TOnlineStatusProp) {
     await updateOnlineStatus(status);
@@ -60,8 +65,8 @@ export default function UserModal({ username, onlineStatus }: TUserModalProps) {
     <Wrapper>
       <Upper>
         <ProfileCirclePic $big />
-        <UtilityBtn title="Open settings" onClick={handleClickSettings}>
-          <SvgIcon imgSrc={"settings.svg"} alt="Settings icon" />
+        <UtilityBtn title="Close modal" onClick={handleClickClose}>
+          <SvgIcon imgSrc={"close.svg"} alt="Close icon" />
         </UtilityBtn>
       </Upper>
       <SecondRow>
