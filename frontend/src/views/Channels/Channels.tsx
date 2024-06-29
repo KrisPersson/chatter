@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
@@ -18,7 +17,6 @@ export const ButtonContainer = styled.div`
 `;
 
 export default function Channels() {
-  const navigate = useNavigate();
   const [mode, setMode] = useState<TModes>("");
 
   function clickHandler(mode: TModes) {

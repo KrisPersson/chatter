@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { size } from "../../utils/helpers";
 import { _headingBase } from "../../styled-components/Headings";
 import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
-import { OnlineStatusCircle } from "../../styled-components/OnlineStatusCircle";
 
 export const Wrapper = styled.div`
   display: grid;

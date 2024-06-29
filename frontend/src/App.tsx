@@ -14,10 +14,9 @@ import {
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { verifyTokenApi } from "./api/auth";
-const auth = await verifyTokenApi();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!auth);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   async function checkToken() {
     const auth = await verifyTokenApi();

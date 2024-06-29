@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   Header,
   Heading,
@@ -6,11 +5,8 @@ import {
   ContentWrapper,
   WelcomeText,
 } from "./styled";
-import ChatWindow from "../../components/ChatWindow/ChatWindow";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-
   const username = localStorage.getItem("username") || "";
 
   return (

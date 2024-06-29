@@ -43,7 +43,6 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
   const [searchInput, setSearchInput] = useState("");
   const [usersInDb, setUsersInDb] = useState<TUser[]>([]);
   const [showUserModal, setShowUserModal] = useState("");
-  const [updateLocally, setUpdateLocally] = useState([1]);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -57,7 +56,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
 
   useEffect(() => {
     fetchUsers();
-  }, [updateLocally]);
+  }, []);
   const searchResults = searchInput
     ? usersInDb.filter((item) => item.username.includes(searchInput))
     : usersInDb;
