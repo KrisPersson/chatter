@@ -18,7 +18,7 @@ export async function user(body: TUserBody, intent: TIntent) {
     if (body.repeatPassword) {
       sendBody.repeatPassword = body.repeatPassword;
     }
-    const response = await fetch(BASE_URL + "/user/" + intent, {
+    const response = await fetch(BASE_URL + "/api/user/" + intent, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

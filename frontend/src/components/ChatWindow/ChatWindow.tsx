@@ -19,9 +19,13 @@ import { useLocation } from "react-router-dom";
 import { extractSearchParams } from "../../utils/helpers";
 import { getChannel } from "../../api/channel";
 import { getRelationship } from "../../api/relationship";
+import { BASE_URL } from "../../api";
 
-const URL = "http://localhost:8000";
-const socket = io(URL);
+const URL = BASE_URL;
+const socket = io(URL, {
+  transports: ["websocket", "polling"],
+  withCredentials: true,
+});
 
 export default function ChatWindow() {
   const [messages, setMessages] = useState<TMessage[]>([]);

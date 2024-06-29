@@ -8,7 +8,7 @@ export async function postMessageToChannelDb(msg: TMessage) {
       sentAt: msg.sentAt,
       channel: msg.channel,
     };
-    const response = await fetch(BASE_URL + "/channel/message", {
+    const response = await fetch(BASE_URL + "/api/channel/message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

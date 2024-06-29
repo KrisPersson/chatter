@@ -12,19 +12,22 @@ import {
   Wrapper,
 } from "./styled";
 import { verifyTokenApi } from "../../api/auth";
+import { getTest } from "../../api/test";
+const test = await getTest();
+console.log(test);
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  async function checkAuth() {
-    const auth = await verifyTokenApi();
-    if (auth.success) {
-      navigate("/dashboard");
-    }
-  }
+  // async function checkAuth() {
+  //   const auth = await verifyTokenApi();
+  //   if (auth.success) {
+  //     navigate("/dashboard");
+  //   }
+  // }
 
-  useEffect(() => {
-    checkAuth();
-  });
+  // useEffect(() => {
+  //   checkAuth();
+  // });
 
   function handleClick(path: string) {
     navigate(`/${path}`);

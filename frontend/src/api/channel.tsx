@@ -2,7 +2,7 @@ import { BASE_URL } from ".";
 
 export async function getAllChannels() {
   try {
-    const response = await fetch(BASE_URL + "/channel", {
+    const response = await fetch(BASE_URL + "/api/channel", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export async function getAllChannels() {
 
 export async function getUserChannels() {
   try {
-    const response = await fetch(BASE_URL + "/user/channels", {
+    const response = await fetch(BASE_URL + "/api/user/channels", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export async function getUserChannels() {
 
 export async function getChannel(channelName: string) {
   try {
-    const response = await fetch(BASE_URL + `/channel/${channelName}`, {
+    const response = await fetch(BASE_URL + `/api/channel/${channelName}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export async function getChannel(channelName: string) {
 export async function joinChannel(channelName: string) {
   try {
     const body = { channelName };
-    const response = await fetch(BASE_URL + "/channel/join", {
+    const response = await fetch(BASE_URL + "/api/channel/join", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export async function joinChannel(channelName: string) {
 export async function createChannel(channelName: string) {
   try {
     const body = { name: channelName };
-    const response = await fetch(BASE_URL + "/channel/create", {
+    const response = await fetch(BASE_URL + "/api/channel/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ export async function createChannel(channelName: string) {
 export async function leaveChannel(channelName: string) {
   try {
     const body = { channelName };
-    const response = await fetch(BASE_URL + "/channel/leave", {
+    const response = await fetch(BASE_URL + "/api/channel/leave", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export async function leaveChannel(channelName: string) {
 export async function deleteChannel(channelName: string) {
   try {
     const body = { channelName };
-    const response = await fetch(BASE_URL + "/channel", {
+    const response = await fetch(BASE_URL + "/api/channel", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

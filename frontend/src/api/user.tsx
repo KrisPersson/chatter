@@ -10,7 +10,7 @@ import { TOnlineStatusProp } from "../types";
 
 export async function getUserInfo() {
   try {
-    const response = await fetch(BASE_URL + "/user/", {
+    const response = await fetch(BASE_URL + "/api/user/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function getUserInfo() {
 
 export async function getAllUsers() {
   try {
-    const response = await fetch(BASE_URL + "/user/all", {
+    const response = await fetch(BASE_URL + "/api/user/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export async function getAllUsers() {
 export async function updateOnlineStatus(status: TOnlineStatusProp) {
   try {
     const body = { status };
-    const response = await fetch(BASE_URL + "/user/status", {
+    const response = await fetch(BASE_URL + "/api/user/status", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
