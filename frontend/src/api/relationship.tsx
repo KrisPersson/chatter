@@ -3,7 +3,7 @@ import { BASE_URL } from ".";
 export async function getRelationship(relationshipId: string) {
   try {
     const response = await fetch(
-      BASE_URL + `/relationship?id=${relationshipId}`,
+      BASE_URL + `/api/relationship?id=${relationshipId}`,
       {
         method: "GET",
         headers: {
@@ -23,7 +23,7 @@ export async function getRelationship(relationshipId: string) {
 export async function createOrGetRelationship(otherParties: string[]) {
   try {
     const body = { otherParties };
-    const response = await fetch(BASE_URL + "/relationship", {
+    const response = await fetch(BASE_URL + "/api/relationship", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

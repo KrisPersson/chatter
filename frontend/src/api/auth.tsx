@@ -6,7 +6,7 @@ export async function verifyTokenApi() {
       token: localStorage.getItem("userToken") as string,
     };
 
-    const response = await fetch(BASE_URL + "/user/token", {
+    const response = await fetch(BASE_URL + "/api/user/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
