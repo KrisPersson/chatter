@@ -19,9 +19,9 @@ import { useLocation } from "react-router-dom";
 import { extractSearchParams } from "../../utils/helpers";
 import { getChannel } from "../../api/channel";
 import { getRelationship } from "../../api/relationship";
-import { BASE_URL } from "../../api";
+import { WEBSOCKET_URL } from "../../api";
 
-const URL = BASE_URL;
+const URL = WEBSOCKET_URL;
 const socket = io(URL, {
   transports: ["websocket", "polling"],
   withCredentials: true,

@@ -13,7 +13,7 @@ import {
   postDirectMessageToDb,
 } from "./model/message/message.model.js";
 config();
-const FRONTEND_URL = "http://localhost:5173";
+const FRONTEND_URL = "https://kp-chatter.netlify.app";
 const corsOptions = {
   origin: FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE"],
