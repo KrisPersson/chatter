@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { Header, Heading, Wrapper, ContentWrapper } from "./styled";
@@ -17,10 +16,7 @@ export const ButtonContainer = styled.div`
 export type TModes = "find" | "";
 
 export default function Users() {
-  const navigate = useNavigate();
   const [mode, setMode] = useState<TModes>("");
-
-  const username = localStorage.getItem("username") || "";
 
   function clickHandler(mode: TModes) {
     setMode(mode);
