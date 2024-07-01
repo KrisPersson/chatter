@@ -47,7 +47,7 @@ database.once("connected", () =>
 
 const io = new Server(httpServer, {
   cors: {
-    origin: [FRONTEND_URL],
+    origin: [FRONTEND_URL, "https://api.chatter.se"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "authorization"],
     credentials: true,
