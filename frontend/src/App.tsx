@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Channels from "./views/Channels/Channels";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
 import Users from "./views/Users/Users";
+import HealthCheck from "./views/HealthCheck/HealthCheck";
 import {
   BrowserRouter as Router,
   Routes,
@@ -37,6 +38,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/health" element={<HealthCheck />} />
+
           {isAuthenticated ? (
             <Route element={<AuthenticatedLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />

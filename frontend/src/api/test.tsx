@@ -1,9 +1,6 @@
-import { BASE_URL } from ".";
-
-export async function getTest() {
+export async function getTest(BASEURL: string) {
   try {
-    console.log(BASE_URL + `/api/test`);
-    const response = await fetch(BASE_URL + `/api/test`, {
+    const response = await fetch(BASEURL + `/api/test`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

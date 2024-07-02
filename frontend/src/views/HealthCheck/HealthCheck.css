@@ -1,0 +1,31 @@
+.main {
+    min-width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.heading {
+    color: var(--c-main);
+    padding-top: 100px;
+
+}
+.text {
+    color: var(--c-main);
+}
+
+.form {
+    margin: auto;
+    border: 2px solid white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    display: flex;
+    gap: 4px;
+}

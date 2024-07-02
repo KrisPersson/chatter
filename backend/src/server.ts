@@ -13,9 +13,9 @@ import {
   postDirectMessageToDb,
 } from "./model/message/message.model.js";
 config();
-const FRONTEND_URL = "https://chatter.se";
+const FRONTEND_URLS = ["https://chatter.se", "https://api.chatter.se"];
 const corsOptions = {
-  origin: FRONTEND_URL,
+  origin: FRONTEND_URLS,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "authorization"],
   credentials: true,
@@ -47,7 +47,7 @@ database.once("connected", () =>
 
 const io = new Server(httpServer, {
   cors: {
-    origin: [FRONTEND_URL, "https://api.chatter.se"],
+    origin: FRONTEND_URLS,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "authorization"],
     credentials: true,
