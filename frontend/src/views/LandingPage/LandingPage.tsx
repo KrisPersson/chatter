@@ -45,6 +45,7 @@ export default function LandingPage() {
             Log in
           </Button>
           <Button onClick={() => handleClick("signup")}>Sign up</Button>
+          <Button onClick={() => handleClick("health")}>Health</Button>
         </ButtonWrapper>
       </Wrapper>
     </Main>
