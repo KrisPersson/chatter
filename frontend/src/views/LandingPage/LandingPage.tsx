@@ -12,14 +12,11 @@ import {
   Wrapper,
 } from "./styled";
 import { verifyTokenApi } from "../../api/auth";
-import { getTest } from "../../api/test";
 
 export default function LandingPage() {
   const navigate = useNavigate();
   async function checkAuth() {
-    const test = await getTest();
     const auth = await verifyTokenApi();
-    console.log("test api: ", test);
     if (auth.success) {
       navigate("/dashboard");
     }
