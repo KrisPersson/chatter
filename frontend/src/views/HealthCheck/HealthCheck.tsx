@@ -16,6 +16,7 @@ export default function HealthCheck() {
 
   const URLS = [
     "https://api.chatter.se",
+    "https://apii.chatter.se",
     "http://api.chatter.se",
     "https://chatter-env.eba-gxgabbz2.eu-north-1.elasticbeanstalk.com",
     "http://chatter-env.eba-gxgabbz2.eu-north-1.elasticbeanstalk.com",
