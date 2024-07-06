@@ -6,6 +6,7 @@ import UserModal from "../UserModal/UserModal";
 import { useState } from "react";
 import { TOnlineStatusProp } from "../../types/index";
 import { OnlineStatusCircle } from "../../styled-components/OnlineStatusCircle";
+import { useNavigate } from "react-router-dom";
 
 type THeaderProps = {
   onlineStatus: TOnlineStatusProp;
@@ -14,11 +15,12 @@ type THeaderProps = {
 export default function Header({ onlineStatus }: THeaderProps) {
   const username = localStorage.getItem("username") || "";
   const [showUserModal, setShowUserModal] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
       <ContentWrapper>
-        <Heading>Chatter</Heading>
+        <Heading onClick={() => navigate("/dashboard")}>Chatter</Heading>
         <ProfileCircleWrapper>
           <ProfileCirclePic
             $big

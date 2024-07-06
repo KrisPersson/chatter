@@ -22,4 +22,5 @@ export const Heading = styled(_headingBase).attrs(() => ({ as: "h1" }))`
   font-size: 2.25rem;
   line-height: 1;
   max-width: fit-content;
+  cursor: pointer;
 `;
