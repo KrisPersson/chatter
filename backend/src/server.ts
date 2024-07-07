@@ -13,7 +13,11 @@ import {
   postDirectMessageToDb,
 } from "./model/message/message.model.js";
 config();
-const FRONTEND_URLS = ["https://chatter.se", "https://api.chatter.se"];
+const FRONTEND_URLS = [
+  "https://chatter.se",
+  "https://api.chatter.se",
+  "http://localhost:5173",
+];
 const corsOptions = {
   origin: FRONTEND_URLS,
   methods: ["GET", "POST", "PUT", "DELETE"],

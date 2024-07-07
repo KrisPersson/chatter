@@ -27,6 +27,13 @@ export const UserFooterContainer = styled.footer`
   bottom: 0;
   left: 0;
   z-index: 10;
+
+  @media (min-width: 900px) {
+    max-width: 300px;
+    width: 100%;
+
+    min-width: unset;
+  }
 `;
 
 export const Heading = styled(_headingBase).attrs(() => ({ as: "h3" }))`

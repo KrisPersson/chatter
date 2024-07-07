@@ -10,10 +10,14 @@ export const Wrapper = styled.section`
 
 export const WelcomeText = styled(_headingBase).attrs(() => ({ as: "p" }))`
   color: var(--c-main);
-  font-size: 5rem;
+  font-size: 2.5rem;
   line-height: 1;
   max-width: fit-content;
   font-weight: 400;
+
+  @media (min-width: 900px) {
+    font-size: 5rem;
+  }
 `;
 
 export const ContentWrapper = styled.div`

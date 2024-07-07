@@ -20,7 +20,6 @@ import { extractSearchParams } from "../../utils/helpers";
 import { getChannel } from "../../api/channel";
 import { getRelationship } from "../../api/relationship";
 import { WEBSOCKET_URL } from "../../api";
-console.log(WEBSOCKET_URL);
 const URL = WEBSOCKET_URL;
 const socket = io(URL, {
   transports: ["websocket", "polling"],
