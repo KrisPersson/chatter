@@ -19,7 +19,7 @@ import { createOrGetRelationship } from "../../api/relationship";
 const Wrapper = styled.div`
   min-width: 100%;
   min-height: 100%;
-  padding: var(--main-gutter);
+  padding-block: var(--main-gutter);
 
   ${TextLabel} {
     font-size: 0.75rem;
@@ -27,7 +27,13 @@ const Wrapper = styled.div`
 
   ${UtilityBtn} {
     position: absolute;
-    right: ${size(3)};
+    right: 0;
+    top: 0;
+
+    @media (min-width: 900px) {
+      right: ${size(3)};
+      top: unset;
+    }
   }
 
   ${SearchInput} {

@@ -22,7 +22,8 @@ export const Container = styled.section`
     inset: 0px;
     top: 98px;
     background: var(--c-background-darker);
-    z-index: 2;
+    z-index: 6;
+    display: none;
 
     @media (min-width: 900px) {
       display: block;

@@ -10,9 +10,13 @@ export type TModes = "find" | "create" | "";
 
 export const ButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   & > * {
     font-size: 1.5rem;
+  }
+  @media (min-width: 900) {
+    flex-direction: row;
   }
 `;
 

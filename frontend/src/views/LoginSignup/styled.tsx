@@ -75,3 +75,11 @@ export const BottomLine = styled.div`
 export const StyledLink = styled(Link)`
   color: var(--c-main);
 `;
+
+export const CopyrightText = styled(_headingBase).attrs(() => ({ as: "p" }))`
+  font-size: 0.75rem;
+  color: var(--c-primary-default);
+  position: absolute;
+  bottom: 0;
+  right: var(--main-gutter);
+`;

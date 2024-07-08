@@ -10,7 +10,7 @@ export default function UserChannelItem({ username }: TUserChannelItemProps) {
   const Usernames = <Name>@{username}</Name>;
 
   return (
-    <Wrapper>
+    <Wrapper title={"@" + username}>
       {ProfilePics && ProfilePics}
       {Usernames && Usernames}
     </Wrapper>

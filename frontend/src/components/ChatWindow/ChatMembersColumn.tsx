@@ -3,12 +3,20 @@ import { _headingBase } from "../../styled-components/Headings";
 import { SidebarList } from "../../styled-components/SidebarList";
 import UserChannelItem from "../UserChatItem/UserChannelItem";
 import { size } from "../../utils/helpers";
+import { Name } from "../UserChatItem/styled";
 
 export const ChatMemberColumnWrapper = styled.section`
   background: var(--c-background-darker);
   padding-inline: var(--main-gutter);
   padding-block: var(--main-gutter);
   position: relative;
+
+  ${Name} {
+    display: none;
+    @media (min-width: 900px) {
+      display: block;
+    }
+  }
 `;
 
 const LocalHeading = styled(_headingBase).attrs(() => ({ as: "h3" }))`

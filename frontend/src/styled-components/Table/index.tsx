@@ -15,6 +15,7 @@ export const Th = styled(_headingBase).attrs({ as: "th" })`
   font-weight: 400;
   font-size: 0.75rem;
   text-align: left;
+  line-height: 2;
 `;
 export const Td = styled(_headingBase).attrs({ as: "td" })`
   color: var(--c-main);

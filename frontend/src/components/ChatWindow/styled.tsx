@@ -13,13 +13,22 @@ export const Wrapper = styled.article<{
 
   display: grid;
   grid-template-rows: 50px 1fr 32px;
-  grid-template-columns: ${(props) => (props.$isDm ? "1fr" : "1fr 300px")};
+  grid-template-columns: ${(props) => (props.$isDm ? "1fr" : "1fr 70px")};
+
+  @media (min-width: 900px) {
+    grid-template-columns: ${(props) => (props.$isDm ? "1fr" : "1fr 300px")};
+  }
 
   ${ChatMemberColumnWrapper} {
     grid-row: 1/ -2;
     grid-column: 2 / -1;
     margin: var(--ignore-gutter);
     margin-left: unset;
+
+    @media (min-width: 900) {
+      grid-row: 1/ -2;
+      grid-column: 2 / -1;
+    }
   }
 `;
 

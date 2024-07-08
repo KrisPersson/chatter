@@ -14,7 +14,7 @@ import { update } from "../../features/reFetchControl/reFetch-slice";
 const Wrapper = styled.div`
   min-width: 100%;
   min-height: 100%;
-  padding: var(--main-gutter);
+  padding-block: var(--main-gutter);
   display: grid;
   grid-template-rows: auto ${size(4)} auto 1fr;
 
@@ -25,7 +25,13 @@ const Wrapper = styled.div`
 
   ${UtilityBtn} {
     position: absolute;
-    right: ${size(3)};
+    right: 0;
+    top: 0;
+
+    @media (min-width: 900px) {
+      right: ${size(3)};
+      top: unset;
+    }
   }
 
   ${SearchInput} {

@@ -10,6 +10,7 @@ import {
   Img,
   BottomLine,
   StyledLink,
+  CopyrightText,
 } from "./styled";
 import { Main } from "../../styled-components/FrontpageMain";
 import { Form } from "./form";
@@ -86,6 +87,13 @@ export default function LoginPage() {
           No account? Sign up <StyledLink to="/signup">here!</StyledLink>
         </BottomLine>
       </Form>
+      <CopyrightText>
+        Copyright ©{" "}
+        <StyledLink to="https://krispersson.se" target="_blank">
+          Kristofer Persson
+        </StyledLink>{" "}
+        2024
+      </CopyrightText>
     </Main>
   );
 }

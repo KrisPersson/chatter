@@ -11,12 +11,12 @@ export const Wrapper = styled.section`
 export const WelcomeText = styled(_headingBase).attrs(() => ({ as: "p" }))`
   color: var(--c-main);
   font-size: 2.5rem;
-  line-height: 1;
+  line-height: 1.25;
   max-width: fit-content;
   font-weight: 400;
-
+  text-align: center;
   @media (min-width: 900px) {
-    font-size: 5rem;
+    font-size: 4rem;
   }
 `;
 

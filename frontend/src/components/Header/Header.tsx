@@ -1,4 +1,4 @@
-import { HeaderWrapper, ContentWrapper } from "./styled";
+import { HeaderWrapper, ContentWrapper, MenuWrapper } from "./styled";
 import { ProfileCircleWrapper } from "../../styled-components/ProfileCirclePic/index";
 import { Heading } from "./styled";
 import { ProfileCirclePic } from "../../styled-components/ProfileCirclePic";
@@ -7,12 +7,14 @@ import { useState } from "react";
 import { TOnlineStatusProp } from "../../types/index";
 import { OnlineStatusCircle } from "../../styled-components/OnlineStatusCircle";
 import { useNavigate } from "react-router-dom";
+import SvgIcon from "../SvgIcon/SvgIcon";
 
 type THeaderProps = {
   onlineStatus: TOnlineStatusProp;
+  setShowSidebar: () => void;
 };
 
-export default function Header({ onlineStatus }: THeaderProps) {
+export default function Header({ onlineStatus, setShowSidebar }: THeaderProps) {
   const username = localStorage.getItem("username") || "";
   const [showUserModal, setShowUserModal] = useState(false);
   const navigate = useNavigate();
@@ -21,15 +23,22 @@ export default function Header({ onlineStatus }: THeaderProps) {
     <HeaderWrapper>
       <ContentWrapper>
         <Heading onClick={() => navigate("/dashboard")}>Chatter</Heading>
-        <ProfileCircleWrapper>
-          <ProfileCirclePic
-            $big
-            title={username}
-            onClick={() => setShowUserModal((prev) => !prev)}
-            style={{ opacity: showUserModal ? "0.7" : "1" }}
+        <MenuWrapper>
+          <SvgIcon
+            imgSrc="hamburger.svg"
+            alt="Hamburger menu"
+            clickHandler={() => setShowSidebar()}
           />
-          <OnlineStatusCircle $status={onlineStatus} />
-        </ProfileCircleWrapper>
+          <ProfileCircleWrapper>
+            <ProfileCirclePic
+              $big
+              title={username}
+              onClick={() => setShowUserModal((prev) => !prev)}
+              style={{ opacity: showUserModal ? "0.7" : "1" }}
+            />
+            <OnlineStatusCircle $status={onlineStatus} />
+          </ProfileCircleWrapper>
+        </MenuWrapper>
       </ContentWrapper>
       {showUserModal && (
         <UserModal

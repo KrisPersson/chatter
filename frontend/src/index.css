@@ -122,3 +122,7 @@ button:active {
   opacity: 0.6;
 }
 
+.sidebar--show-mobile {
+  display: block !important;
+}
+

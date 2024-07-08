@@ -15,6 +15,7 @@ const AuthenticatedLayout = () => {
     TBasicRelationship[]
   >([]);
   const [userOnlineStatus, setUserOnlineStatus] = useState("offline");
+  const [showSidebar, setShowSidebar] = useState(false);
   const refetchState = useAppSelector((state) => state.refetchCtrl.arr);
 
   async function handleUpdateChanAndRel() {
@@ -28,10 +29,24 @@ const AuthenticatedLayout = () => {
     handleUpdateChanAndRel();
   }, [refetchState]);
 
+  function handleClickShowSidebar() {
+    console.log("clicked!");
+    setShowSidebar((prev) => !prev);
+    console.log(showSidebar);
+  }
+
   return (
     <Container>
-      <Header onlineStatus={userOnlineStatus as TOnlineStatusProp} />
-      <Sidebar channels={userChannels} relationships={userRelationships} />
+      <Header
+        onlineStatus={userOnlineStatus as TOnlineStatusProp}
+        setShowSidebar={handleClickShowSidebar}
+      />
+      <Sidebar
+        className={showSidebar ? "sidebar--show-mobile" : ""}
+        channels={userChannels}
+        relationships={userRelationships}
+        setShowSidebar={handleClickShowSidebar}
+      />
       <Main>
         <Outlet />
       </Main>
