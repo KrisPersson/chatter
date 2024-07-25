@@ -4,11 +4,18 @@ import { size } from "../../utils/helpers";
 
 export const Table = styled.table`
   margin-block: ${size(2)};
+  max-height: calc(100vh - 335px);
+  overflow-y: auto;
 `;
 
 export const Tr = styled.tr``;
 
 export const THead = styled.thead``;
+
+export const TBody = styled.tbody`
+  max-height: calc(100vh - 335px);
+  overflow-y: auto;
+`;
 
 export const Th = styled(_headingBase).attrs({ as: "th" })`
   color: var(--c-darker);

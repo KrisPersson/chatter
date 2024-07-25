@@ -7,7 +7,7 @@ import { SearchInput, TextLabel } from "../../styled-components/TextInput";
 import { size } from "../../utils/helpers";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Button, UtilityBtn } from "../../styled-components/Button";
-import { Table, THead, Th, Tr, Td } from "../../styled-components/Table";
+import { Table, THead, TBody, Th, Tr, Td } from "../../styled-components/Table";
 import SvgIcon from "../../components/SvgIcon/SvgIcon";
 import UserChatItem from "../../components/UserChatItem/UserChatItem";
 import { TModes } from "./Users";
@@ -19,7 +19,9 @@ import { createOrGetRelationship } from "../../api/relationship";
 const Wrapper = styled.div`
   min-width: 100%;
   min-height: 100%;
+  max-height: 100%;
   padding-block: var(--main-gutter);
+  overflow-y: auto;
 
   ${TextLabel} {
     font-size: 0.75rem;
@@ -106,7 +108,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
                 <Th>MEMBER SINCE</Th>
               </Tr>
             </THead>
-            <tbody>
+            <TBody>
               <Tr>
                 <Td>
                   {selectedUser?.memberSince
@@ -116,7 +118,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
                     .join(" ")}
                 </Td>
               </Tr>
-            </tbody>
+            </TBody>
           </Table>
           {selectedUser?.username === username ? (
             <Button
@@ -153,7 +155,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
             <Th>USERNAME</Th>
           </Tr>
         </THead>
-        <tbody>
+        <TBody>
           {searchItems.length > 0 ? (
             searchItems
           ) : (
@@ -163,7 +165,7 @@ export default function FindUserMode({ setMode }: TFindUserProps) {
               </Td>
             </Tr>
           )}
-        </tbody>
+        </TBody>
       </Table>
     </Wrapper>
   );
