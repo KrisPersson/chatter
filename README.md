@@ -3,7 +3,8 @@
 A full-stack web chat using React, Redux, Node.js, Socket.io, Express, AWS, and MongoDb.
 
 
-https://chatter.se
+~~https://chatter.se~~ As of 2024-08-02 this App is no longer deployed due to costs associated with AWS.
+You can still try this app out by following the **Installation** steps below:
 
 
 ---
